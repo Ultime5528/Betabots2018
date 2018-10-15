@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.K;
+import frc.robot.commands.Piloter;
 
 public class BasePilotable extends Subsystem {
 
@@ -33,11 +34,12 @@ public class BasePilotable extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
+    setDefaultCommand(new Piloter());
   }
 
   public void arcadeDrive(Joystick joystick) {
 
-    drive.arcadeDrive(-1 * joystick.getY(), joystick.getX());
+    drive.arcadeDrive(joystick.getY(), joystick.getX());
 
   }
 
