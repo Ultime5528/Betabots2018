@@ -7,18 +7,43 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import frc.robot.K;
 
-/**
- * An example subsystem.  You can replace me with your own Subsystem.
- */
 public class BasePilotable extends Subsystem {
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
+
+  private VictorSP moteurDroit;
+  private VictorSP moteurGauche;
+  private DifferentialDrive drive;
+
+  public BasePilotable() {
+
+    moteurDroit = new VictorSP(K.Ports.BASE_PILOTABLE_MOTEUR_DROIT);
+    addChild("Moteur Droit", moteurDroit);
+
+    moteurGauche = new VictorSP(K.Ports.BASE_PILOTABLE_MOTEUR_GAUCHE);
+    addChild("Moteur Gauche", moteurGauche);
+
+    drive = new DifferentialDrive(moteurGauche, moteurDroit);
+    addChild("Drive", drive);
+  }
 
   @Override
   public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
   }
+
+  public void arcadeDrive(Joystick joystick) {
+
+    drive.arcadeDrive(-1 * joystick.getY(), joystick.getX());
+
+  }
+
+  public void stop(){
+    moteurDroit.set(0);
+    moteurGauche.set(0);
+  }
+
 }
