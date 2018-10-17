@@ -24,7 +24,6 @@ import org.opencv.objdetect.*;
 * @author GRIP
 */
 public class GripPipeline {
-
 	//Outputs
 	private Mat resizeImageOutput = new Mat();
 	private Mat blurOutput = new Mat();
@@ -39,11 +38,9 @@ public class GripPipeline {
 	/**
 	 * This is the primary method that runs the entire pipeline and updates the outputs.
 	 */
-	public void process(Mat source0) {
+	public void process(Mat source0, double resizeImageWidth, double resizeImageHeight) {
 		// Step Resize_Image0:
 		Mat resizeImageInput = source0;
-		double resizeImageWidth = 320.0;
-		double resizeImageHeight = 240.0;
 		int resizeImageInterpolation = Imgproc.INTER_NEAREST;
 		resizeImage(resizeImageInput, resizeImageWidth, resizeImageHeight, resizeImageInterpolation, resizeImageOutput);
 

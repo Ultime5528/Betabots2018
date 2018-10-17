@@ -7,13 +7,20 @@
 
 package frc.robot.subsystems;
 
+import java.util.ArrayList;
+
 import org.opencv.core.Mat;
+import org.opencv.core.MatOfPoint;
+import org.opencv.core.Rect;
+import org.opencv.imgproc.Imgproc;
 
 import edu.wpi.cscore.CvSink;
+import edu.wpi.cscore.CvSource;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.GripPipeline;
+import frc.robot.K;
 
 public class Camera extends Subsystem {
 
@@ -39,23 +46,42 @@ public class Camera extends Subsystem {
   }
 
   private void processusVision(){
-
     CvSink source = CameraServer.getInstance().getVideo(camera);
-    Mat image = new Mat();
+    CvSource videoHsv = CameraServer.getInstance().putVideo("Vision HSV", K.Camera.WIDTH, K.Camera.HEIGHT);
+    CvSource videoResize = CameraServer.getInstance().putVideo("Vision Resize", K.Camera.WIDTH, K.Camera.HEIGHT);
+    Mat input = new Mat(), outputResize, outputHsv;
     
     while(!Thread.interrupted()){
       
-      source.grabFrame(image);
-      
       try {
-        
-        gripPipeline.process(image);
+        source.grabFrame(input);
+        gripPipeline.process(input, K.Camera.WIDTH, K.Camera.HEIGHT);
+
+    
+        outputHsv = gripPipeline.hsvThresholdOutput();
+        videoHsv.putFrame(outputHsv);
+
+        outputResize = gripPipeline.resizeImageOutput();
+        videoResize.putFrame(outputResize);
+
+        ArrayList<MatOfPoint> contours = gripPipeline.filterContoursOutput();
+
+        for (MatOfPoint contour : contours) {
+          
+          Rect rect = Imgproc.boundingRect(contour);
+
+          // calcul du centre en X
+          double centreX = rect.width / 2.0 + rect.x;
+          // mettre le centre X entre -1 et 1
+          centreX = 2 * centreX  / K.Camera.WIDTH - 1;
+
+          double yHaut = 1 - 2 * rect.y / (double)K.Camera.HEIGHT;
+          double yBas = 1 - 2 * rect.br().y / (double)K.Camera.HEIGHT;      
+        }
 
       } catch (Exception e) {
         e.printStackTrace();
       }
-
     }
   }
-
 }

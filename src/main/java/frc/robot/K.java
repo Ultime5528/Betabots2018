@@ -25,7 +25,12 @@ public class K {
     
   }
 
-  
+  public static class Camera {
+    public static int WIDTH = 320;
+    public static int HEIGHT = 240;
+    public static double MIN_Y = -0.8;
+    public static double MAX_Y = 0.8;
+  }
 
 
 
