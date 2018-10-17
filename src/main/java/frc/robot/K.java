@@ -14,19 +14,20 @@ public class K {
 
   public static class Ports {
 
+    // PWM
     public static final int BASE_PILOTABLE_MOTEUR_DROIT = 0;
     public static final int BASE_PILOTABLE_MOTEUR_GAUCHE = 1;
-  
+    public static final int INTAKE_MOTEUR_TRAPE = 2;
+    public static final int INTAKE_MOTEUR = 3;
+
+
+    // Analogs
+    public static final int INTAKE_POTENTIOMETRE = 0;
 
   }
 
   public static class BasePilotable {
 
-    
   }
-
-  
-
-
 
 }
