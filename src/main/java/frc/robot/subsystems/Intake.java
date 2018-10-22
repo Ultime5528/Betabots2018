@@ -10,12 +10,8 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 import frc.robot.K;
 
-/**
- * Add your docs here.
- */
 public class Intake extends Subsystem {
 
   private VictorSP moteurTreuil;
@@ -24,8 +20,7 @@ public class Intake extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
+    ;
   }
 
   public Intake() {
@@ -34,10 +29,28 @@ public class Intake extends Subsystem {
     addChild("Moteur Intake", moteurIntake);
 
     moteurTreuil = new VictorSP(K.Ports.INTAKE_MOTEUR_TRAPE);
-    addChild("Moteur Trape", moteurTreuil);
+    addChild("Moteur Treuil", moteurTreuil);
 
     pot = new AnalogPotentiometer(K.Ports.INTAKE_POTENTIOMETRE);
     addChild("Potentiometre", pot);
+
+  }
+
+  public void gober() {
+
+    moteurIntake.set(K.Intake.VITESSE_GOBER);
+
+  }
+
+  public void recracher() {
+
+    moteurIntake.set(K.Intake.VITESSE_CRACHER);
+
+  }
+
+  public void stop() {
+
+    moteurIntake.set(0.0);
 
   }
 

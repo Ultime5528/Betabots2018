@@ -30,4 +30,9 @@ public class K {
 
   }
 
+  public static class Intake {
+    public static double VITESSE_GOBER = 0.2; 
+    public static double VITESSE_CRACHER = -0.2;
+  }
+
 }
