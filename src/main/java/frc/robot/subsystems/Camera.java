@@ -27,6 +27,9 @@ public class Camera extends Subsystem {
   private UsbCamera camera;
   private GripPipeline gripPipeline;
 
+  private final double TARGET_RATIO_CARROTTE = 2.0;
+  private final double TARGET_RATIO_ATTERISSAGE = 6.0;
+
   public Camera(){
 
     camera = new UsbCamera("Main Cam", 0);
@@ -40,11 +43,6 @@ public class Camera extends Subsystem {
     thread.start();
   }
 
-  @Override
-  public void initDefaultCommand() {
-
-  }
-
   private void processusVision(){
     CvSink source = CameraServer.getInstance().getVideo(camera);
     CvSource videoHsv = CameraServer.getInstance().putVideo("Vision HSV", K.Camera.WIDTH, K.Camera.HEIGHT);
@@ -55,7 +53,7 @@ public class Camera extends Subsystem {
       
       try {
         source.grabFrame(input);
-        gripPipeline.process(input, K.Camera.WIDTH, K.Camera.HEIGHT);
+        gripPipeline.process(input);
 
     
         outputHsv = gripPipeline.hsvThresholdOutput();
@@ -66,22 +64,51 @@ public class Camera extends Subsystem {
 
         ArrayList<MatOfPoint> contours = gripPipeline.filterContoursOutput();
 
-        for (MatOfPoint contour : contours) {
-          
-          Rect rect = Imgproc.boundingRect(contour);
-
-          // calcul du centre en X
-          double centreX = rect.width / 2.0 + rect.x;
-          // mettre le centre X entre -1 et 1
-          centreX = 2 * centreX  / K.Camera.WIDTH - 1;
-
-          double yHaut = 1 - 2 * rect.y / (double)K.Camera.HEIGHT;
-          double yBas = 1 - 2 * rect.br().y / (double)K.Camera.HEIGHT;      
-        }
+        contours.stream()
+          .map(Imgproc::boundingRect)
+          .map(this::normalizeRect)
+          .filter(this::filtrerRectangle);
 
       } catch (Exception e) {
         e.printStackTrace();
       }
     }
   }
+
+  @Override
+  public void initDefaultCommand() {
+  }
+
+  public Rectangle normalizeRect(Rect rect){
+    double normalizedX = 2 * rect.x  / (double)K.Camera.WIDTH - 1;
+    double normalizedY = 1 - 2 * rect.y / (double)K.Camera.HEIGHT;
+    double normalizedW = 2 * rect.width  / (double)K.Camera.WIDTH;
+    double normalizedH = 2 * rect.height / (double)K.Camera.HEIGHT;
+
+    return new Rectangle(normalizedX, normalizedY, normalizedW, normalizedH);
+  }
+
+  public boolean filtrerRectangle(Rectangle rectangle) {
+    
+    if(rectangle.ratio() < 1)
+      return false;    
+
+    return true;
+  }
+
+  private class Rectangle{
+
+      public double x, y, width, height;
+
+      public Rectangle(double x, double y, double width, double height){
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+      }
+
+      public double ratio(){
+        return width / height;
+      }
+    }
 }

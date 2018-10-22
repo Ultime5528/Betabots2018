@@ -30,6 +30,18 @@ public class K {
     public static int HEIGHT = 240;
     public static double MIN_Y = -0.8;
     public static double MAX_Y = 0.8;
+
+    //Process
+    //HSV
+    public static double H_MIN = 11.33;
+    public static double H_MAX = 89.38;
+
+		public static double S_MIN = 133.0;
+    public static double S_MAX = 255.0;
+
+    public static double V_MIN = 255.0;
+    public static double V_MAX = 126.12;
+
   }
 
 

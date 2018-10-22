@@ -38,11 +38,11 @@ public class GripPipeline {
 	/**
 	 * This is the primary method that runs the entire pipeline and updates the outputs.
 	 */
-	public void process(Mat source0, double resizeImageWidth, double resizeImageHeight) {
+	public void process(Mat source0) {
 		// Step Resize_Image0:
 		Mat resizeImageInput = source0;
 		int resizeImageInterpolation = Imgproc.INTER_NEAREST;
-		resizeImage(resizeImageInput, resizeImageWidth, resizeImageHeight, resizeImageInterpolation, resizeImageOutput);
+		resizeImage(resizeImageInput, K.Camera.WIDTH, K.Camera.HEIGHT, resizeImageInterpolation, resizeImageOutput);
 
 		// Step Blur0:
 		Mat blurInput = resizeImageOutput;
@@ -52,10 +52,7 @@ public class GripPipeline {
 
 		// Step HSV_Threshold0:
 		Mat hsvThresholdInput = blurOutput;
-		double[] hsvThresholdHue = {11.33093525179856, 89.38566552901023};
-		double[] hsvThresholdSaturation = {133.00359712230218, 255.0};
-		double[] hsvThresholdValue = {126.12410071942448, 255.0};
-		hsvThreshold(hsvThresholdInput, hsvThresholdHue, hsvThresholdSaturation, hsvThresholdValue, hsvThresholdOutput);
+		hsvThreshold(hsvThresholdInput, hsvThresholdOutput);
 
 		// Step Find_Contours0:
 		Mat findContoursInput = hsvThresholdOutput;
@@ -207,11 +204,10 @@ public class GripPipeline {
 	 * @param val The min and max value
 	 * @param output The image in which to store the output.
 	 */
-	private void hsvThreshold(Mat input, double[] hue, double[] sat, double[] val,
-	    Mat out) {
+	private void hsvThreshold(Mat input, Mat out) {
 		Imgproc.cvtColor(input, out, Imgproc.COLOR_BGR2HSV);
-		Core.inRange(out, new Scalar(hue[0], sat[0], val[0]),
-			new Scalar(hue[1], sat[1], val[1]), out);
+		Core.inRange(out, new Scalar(K.Camera.H_MIN, K.Camera.S_MIN, K.Camera.V_MIN),
+			new Scalar(K.Camera.H_MAX, K.Camera.S_MAX, K.Camera.V_MAX), out);
 	}
 
 	/**
