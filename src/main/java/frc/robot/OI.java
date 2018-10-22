@@ -7,17 +7,26 @@
 
 package frc.robot;
 
-import java.lang.reflect.Method;
-
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.commands.CracherBalles;
+import frc.robot.commands.PrendreBalles;
 
 public class OI {
 
   private Joystick joystick;
+  private JoystickButton button1;
+  private JoystickButton button2;
 
   public OI() {
 
     joystick = new Joystick(0);
+
+    button1 = new JoystickButton(joystick, 1);
+    button1.toggleWhenPressed(new PrendreBalles());
+
+    button2 = new JoystickButton(joystick, 2);
+    button2.toggleWhenPressed(new CracherBalles());
 
   }
 
