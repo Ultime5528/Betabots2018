@@ -8,6 +8,7 @@
 package frc.robot.subsystems;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
@@ -64,10 +65,17 @@ public class Camera extends Subsystem {
 
         ArrayList<MatOfPoint> contours = gripPipeline.filterContoursOutput();
 
-        contours.stream()
+        Optional<Rectangle> targetRectangleOpt = contours.stream()
           .map(Imgproc::boundingRect)
           .map(this::normalizeRect)
-          .filter(this::filtrerRectangle);
+          .filter(this::filtrerRectangle)
+          .sorted(this::ordonnerRectangles)
+          .findFirst();
+
+        Rectangle targetRectangle = null;
+        if(targetRectangleOpt.isPresent()){
+          targetRectangle = targetRectangleOpt.get();
+        }
 
       } catch (Exception e) {
         e.printStackTrace();
@@ -96,6 +104,19 @@ public class Camera extends Subsystem {
     return true;
   }
 
+  public int ordonnerRectangles(Rectangle dernier, Rectangle aComparer){
+
+    if(dernier.scoreCarotte() < aComparer.scoreCarotte()){
+      return 1;
+    } 
+
+    else if(dernier.scoreCarotte() > aComparer.scoreCarotte()){
+      return -1;
+    }
+    
+    return 0;
+  }
+ 
   private class Rectangle{
 
       public double x, y, width, height;
@@ -110,5 +131,15 @@ public class Camera extends Subsystem {
       public double ratio(){
         return width / height;
       }
+
+      public double scoreCarotte(){
+        return -50 * Math.abs(ratio()-2) + 1;
+      }
+
+      public double scoreAtterissage(){
+        return -0.5 * Math.abs(ratio()-6) + 1;
+      }
+
+      
     }
 }
