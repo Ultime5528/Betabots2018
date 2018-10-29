@@ -8,11 +8,14 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.subsystems.Camera;
 import frc.robot.subsystems.ExampleSubsystem;
 
 /**
@@ -24,7 +27,13 @@ import frc.robot.subsystems.ExampleSubsystem;
  */
 public class Robot extends TimedRobot {
   public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
+
+  private VictorSP moteurGauche, moteurDroit;
+  private static DifferentialDrive basePilotable;
+
   public static OI m_oi;
+
+  public static Camera camera = new Camera();
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -39,6 +48,11 @@ public class Robot extends TimedRobot {
     m_chooser.addDefault("Default Auto", new ExampleCommand());
     // chooser.addObject("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
+
+    moteurGauche = new VictorSP(0); 
+    moteurDroit = new VictorSP(1);
+
+    basePilotable = new DifferentialDrive(moteurGauche, moteurDroit);
   }
 
   /**
@@ -127,5 +141,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void testPeriodic() {
+  }
+
+  public static void arcadeDriveX(double x){
+    basePilotable.arcadeDrive(0, x);
   }
 }

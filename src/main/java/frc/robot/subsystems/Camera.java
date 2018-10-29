@@ -28,19 +28,17 @@ public class Camera extends Subsystem {
   private UsbCamera camera;
   private GripPipeline gripPipeline;
 
-  private final double TARGET_RATIO_CARROTTE = 2.0;
-  private final double TARGET_RATIO_ATTERISSAGE = 6.0;
+  Rectangle targetRectangle = null;
+
+  private Thread thread;
 
   public Camera(){
 
     camera = new UsbCamera("Main Cam", 0);
-    camera.setBrightness(0);
-    camera.setExposureManual(0);
-
 
     gripPipeline = new GripPipeline();
 
-    Thread thread = new Thread(this::processusVision);
+    thread = new Thread(this::processusVision);
     thread.start();
   }
 
@@ -72,7 +70,6 @@ public class Camera extends Subsystem {
           .sorted(this::ordonnerRectangles)
           .findFirst();
 
-        Rectangle targetRectangle = null;
         if(targetRectangleOpt.isPresent()){
           targetRectangle = targetRectangleOpt.get();
         }
@@ -81,6 +78,20 @@ public class Camera extends Subsystem {
         e.printStackTrace();
       }
     }
+  }
+
+  public double getRectangleCenterX(){
+    return targetRectangle.centreX();
+  }
+
+  public void startCamera(){
+    camera.setBrightness(0);
+    camera.setExposureManual(0);
+  }
+
+  public void stopCamera(){
+    camera.setBrightness(100);
+    camera.setExposureManual(100);
   }
 
   @Override
@@ -113,7 +124,7 @@ public class Camera extends Subsystem {
     else if(dernier.scoreCarotte() > aComparer.scoreCarotte()){
       return -1;
     }
-    
+
     return 0;
   }
  
@@ -133,13 +144,15 @@ public class Camera extends Subsystem {
       }
 
       public double scoreCarotte(){
-        return -50 * Math.abs(ratio()-2) + 1;
+        return -50 * Math.abs(ratio() - 2) + 1;
       }
 
       public double scoreAtterissage(){
-        return -0.5 * Math.abs(ratio()-6) + 1;
+        return -0.5 * Math.abs(ratio() - 6) + 1;
       }
-
       
+      public double centreX(){
+        return x + width/2;
+      }
     }
 }
