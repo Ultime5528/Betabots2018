@@ -142,8 +142,4 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
   }
-
-  public static void arcadeDriveX(double x){
-    basePilotable.arcadeDrive(0, x);
-  }
 }
