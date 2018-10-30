@@ -28,8 +28,17 @@ public class K {
   public static class Camera {
     public static int WIDTH = 320;
     public static int HEIGHT = 240;
-    public static double MIN_Y = -0.8;
-    public static double MAX_Y = 0.8;
+
+    public static double RATIO_OFFSET_ATTERRISSAGE = 1.0;
+    
+    //Viser
+    public static double X_THRESHOLD = 0.05;
+
+    public static double LARGEUR_TARGET = 0.155;
+    public static double LARGEUR_THRESHOLD = 0.016;
+
+    public static double TURN_SPEED = 0.55;
+    public static double FORWARD_SPEED = 0.6;
 
     //Process
     //HSV

@@ -25,6 +25,13 @@ import frc.robot.K;
 
 public class Camera extends Subsystem {
 
+  enum Cible {
+    CAROTTE,
+    ATTERRISSAGE
+  }
+
+  private Cible cible = Cible.ATTERRISSAGE;
+
   private UsbCamera camera;
   private GripPipeline gripPipeline;
 
@@ -47,7 +54,7 @@ public class Camera extends Subsystem {
     CvSource videoHsv = CameraServer.getInstance().putVideo("Vision HSV", K.Camera.WIDTH, K.Camera.HEIGHT);
     CvSource videoResize = CameraServer.getInstance().putVideo("Vision Resize", K.Camera.WIDTH, K.Camera.HEIGHT);
     Mat input = new Mat(), outputResize, outputHsv;
-    
+
     while(!Thread.interrupted()){
       
       try {
@@ -73,15 +80,23 @@ public class Camera extends Subsystem {
         if(targetRectangleOpt.isPresent()){
           targetRectangle = targetRectangleOpt.get();
         }
-
+        
       } catch (Exception e) {
         e.printStackTrace();
       }
     }
   }
 
-  public double getRectangleCenterX(){
+  public synchronized double getCenterX(){
     return targetRectangle.centreX();
+  }
+
+  public synchronized double getLargeur(){
+    return targetRectangle.width / K.Camera.WIDTH;
+  }
+
+  public void setCible(Cible _cible){
+    cible = _cible;
   }
 
   public void startCamera(){
@@ -112,23 +127,43 @@ public class Camera extends Subsystem {
     if(rectangle.ratio() < 1)
       return false;    
 
+    if(cible == Cible.ATTERRISSAGE && rectangle.ratio() >= 6 & rectangle.ratio() < 6 + K.Camera.RATIO_OFFSET_ATTERRISSAGE)
+      return false;
+
+    if(cible == Cible.CAROTTE && rectangle.ratio() != 2)
+      return false;
+
     return true;
   }
 
   public int ordonnerRectangles(Rectangle dernier, Rectangle aComparer){
+    if(cible == Cible.ATTERRISSAGE){
 
-    if(dernier.scoreCarotte() < aComparer.scoreCarotte()){
-      return 1;
-    } 
+      if(dernier.scoreAtterissage() < aComparer.scoreAtterissage()){
+        return 1;
+      } 
 
-    else if(dernier.scoreCarotte() > aComparer.scoreCarotte()){
-      return -1;
+      else if(dernier.scoreAtterissage() > aComparer.scoreAtterissage()){
+        return -1;
+      }
+
+    }else{
+
+      if(dernier.scoreCarotte() < aComparer.scoreCarotte()){
+        return 1;
+      } 
+
+      else if(dernier.scoreCarotte() > aComparer.scoreCarotte()){
+        return -1;
+      }
+
     }
+
 
     return 0;
   }
  
-  private class Rectangle{
+  class Rectangle{
 
       public double x, y, width, height;
 
