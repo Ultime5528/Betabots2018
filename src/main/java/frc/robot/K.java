@@ -14,6 +14,12 @@ public class K {
 
   public static class Ports {
 
+    public static final int ENCODEUR_DROITE_A = 4;
+    public static final int ENCODEUR_DROITE_B = 5;
+
+    public static final int ENCODEUR_GAUCHE_A = 4;
+    public static final int ENCODEUR_GAUCHE_B = 5;
+
     // PWM
     public static final int BASE_PILOTABLE_MOTEUR_DROIT = 0;
     public static final int BASE_PILOTABLE_MOTEUR_GAUCHE = 1;

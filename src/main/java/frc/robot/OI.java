@@ -11,12 +11,15 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.CracherBalles;
 import frc.robot.commands.PrendreBalles;
+import frc.robot.util.CubicInterpolator;
+
 
 public class OI {
 
   private Joystick joystick;
   private JoystickButton button1;
   private JoystickButton button2;
+  private CubicInterpolator interY;
 
   public OI() {
 
@@ -33,6 +36,12 @@ public class OI {
   public Joystick getJoystick() {
 
     return joystick;
+
+  }
+
+  public CubicInterpolator getInterY() {
+
+		return interY;
 
   }
 
