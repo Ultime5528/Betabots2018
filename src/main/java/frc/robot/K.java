@@ -39,6 +39,9 @@ public class K {
     public static int WIDTH = 320;
     public static int HEIGHT = 240;
 
+    public static int PILOT_BRIGHTNESS = 70;
+    public static int PILOT_EXPOSURE = 50;
+
     public static double RATIO_OFFSET_ATTERRISSAGE = 1.0;
     
     //Viser
@@ -62,7 +65,5 @@ public class K {
     public static double V_MAX = 126.12;
 
   }
-
-
 
 }

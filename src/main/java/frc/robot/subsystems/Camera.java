@@ -105,8 +105,8 @@ public class Camera extends Subsystem {
   }
 
   public void stopCamera(){
-    camera.setBrightness(100);
-    camera.setExposureManual(100);
+    camera.setBrightness(K.Camera.PILOT_BRIGHTNESS);
+    camera.setExposureManual(K.Camera.PILOT_EXPOSURE);
   }
 
   @Override
