@@ -11,12 +11,12 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.CracherBalles;
 import frc.robot.commands.PrendreBalles;
+import frc.robot.commands.Viser;
 
 public class OI {
 
   private Joystick joystick;
-  private JoystickButton button1;
-  private JoystickButton button2;
+  private JoystickButton button1, button2, button3;
 
   public OI() {
 
@@ -27,6 +27,10 @@ public class OI {
 
     button2 = new JoystickButton(joystick, 2);
     button2.toggleWhenPressed(new CracherBalles());
+
+    button3 = new JoystickButton(joystick, 3);
+    button3.toggleWhenPressed(new Viser());
+
 
   }
 

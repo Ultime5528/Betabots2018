@@ -7,12 +7,15 @@
 
 package frc.robot.subsystems;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Optional;
 
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
+import org.opencv.core.Point;
 import org.opencv.core.Rect;
+import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 
 import edu.wpi.cscore.CvSink;
@@ -20,6 +23,7 @@ import edu.wpi.cscore.CvSource;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.GripPipeline;
 import frc.robot.K;
 
@@ -32,7 +36,7 @@ public class Camera extends Subsystem {
 
   private Cible cible = Cible.ATTERRISSAGE;
 
-  private UsbCamera camera;
+  private static UsbCamera camera;
   private GripPipeline gripPipeline;
 
   Rectangle targetRectangle = null;
@@ -47,6 +51,14 @@ public class Camera extends Subsystem {
 
     thread = new Thread(this::processusVision);
     thread.start();
+  }
+
+  @Override
+  public void periodic() {
+    if(targetRectangle != null){
+      SmartDashboard.putNumber("Largeur", getLargeur());
+      SmartDashboard.putNumber("Centre X", getCenterX());
+    }
   }
 
   private void processusVision(){
@@ -66,20 +78,22 @@ public class Camera extends Subsystem {
         videoHsv.putFrame(outputHsv);
 
         outputResize = gripPipeline.resizeImageOutput();
-        videoResize.putFrame(outputResize);
-
+        
         ArrayList<MatOfPoint> contours = gripPipeline.filterContoursOutput();
-
+        
         Optional<Rectangle> targetRectangleOpt = contours.stream()
-          .map(Imgproc::boundingRect)
-          .map(this::normalizeRect)
-          .filter(this::filtrerRectangle)
-          .sorted(this::ordonnerRectangles)
-          .findFirst();
-
+        .map(Imgproc::boundingRect)
+        .map(this::normalizeRect)
+        .filter(this::filtrerRectangle)
+        .sorted(this::ordonnerRectangles)
+        .findFirst();
+        
         if(targetRectangleOpt.isPresent()){
           targetRectangle = targetRectangleOpt.get();
+          Imgproc.rectangle(outputResize, new Point(targetRectangle.x, targetRectangle.y), new Point(targetRectangle.x+targetRectangle.width, targetRectangle.y+targetRectangle.height), new Scalar(255, 0, 0));
         }
+
+        videoResize.putFrame(outputResize);
         
       } catch (Exception e) {
         e.printStackTrace();
@@ -92,7 +106,7 @@ public class Camera extends Subsystem {
   }
 
   public synchronized double getLargeur(){
-    return targetRectangle.width / K.Camera.WIDTH;
+    return targetRectangle.width;
   }
 
   public void setCible(Cible _cible){
@@ -106,6 +120,14 @@ public class Camera extends Subsystem {
 
   public void stopCamera(){
     camera.setBrightness(K.Camera.PILOT_BRIGHTNESS);
+    camera.setExposureManual(K.Camera.PILOT_EXPOSURE);
+  }
+
+  public static void updateBrightness(){
+    camera.setBrightness(K.Camera.PILOT_BRIGHTNESS);
+  }
+
+  public static void updateExposure(){
     camera.setExposureManual(K.Camera.PILOT_EXPOSURE);
   }
 

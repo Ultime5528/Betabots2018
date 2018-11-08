@@ -47,7 +47,7 @@ public class GripPipeline {
 		// Step Blur0:
 		Mat blurInput = resizeImageOutput;
 		BlurType blurType = BlurType.get("Box Blur");
-		double blurRadius = 5.0;
+		double blurRadius = 2.0;
 		blur(blurInput, blurType, blurRadius, blurOutput);
 
 		// Step HSV_Threshold0:

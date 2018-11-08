@@ -11,6 +11,7 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DriverStation;
+import frc.robot.K.Camera;
 
 public class Properties {
 
@@ -38,16 +39,31 @@ public class Properties {
 
     }
 
+
+    private void callback() {
+
+        frc.robot.subsystems.Camera.updateBrightness();
+        frc.robot.subsystems.Camera.updateExposure();
+
+    }
+
     public void performChanges() {
 
         synchronized(lock) {
 
+            boolean hasChanged = false;
+
             while(!changes.isEmpty()) {
+
+                hasChanged = true;
 
                 Change change = changes.pop();
                 change.entry.performChange(change.notif);
 
             }
+
+            if(hasChanged)
+                callback();
 
         }
 
@@ -78,7 +94,7 @@ public class Properties {
 
         for (Field f : theClass.getFields())
             if (!Modifier.isFinal(f.getModifiers()) && Modifier.isStatic(f.getModifiers())
-                    && (f.getType() == double.class)) { // Seulement les double sont supportés pour le moment
+                    && (f.getType() == double.class || f.getType() == int.class)) { // Seulement les double sont supportés pour le moment
 
                 entries.add(new Entry(f, table));
 
@@ -103,6 +119,8 @@ public class Properties {
 
                 if (type == double.class) {
                     entry.setDouble(field.getDouble(null));
+                } else if (type == int.class) {
+                    entry.setDouble(field.getInt(null));
                 }
 
             } catch (IllegalAccessException e) {
@@ -127,6 +145,8 @@ public class Properties {
 
                 if (type == double.class) {
                     field.set(null, notif.value.getDouble());
+                } else if(type == int.class) {
+                    field.set(null, (int) notif.value.getDouble());
                 }
 
                 DriverStation.reportWarning(field.getName() + " new value : " + field.getDouble(null), false);
