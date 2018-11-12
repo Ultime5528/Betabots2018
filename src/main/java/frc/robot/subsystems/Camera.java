@@ -9,7 +9,10 @@ package frc.robot.subsystems;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
@@ -81,18 +84,34 @@ public class Camera extends Subsystem {
         
         ArrayList<MatOfPoint> contours = gripPipeline.filterContoursOutput();
         
-        Optional<Rectangle> targetRectangleOpt = contours.stream()
+        List<Rectangle> outRectangles = contours.stream()
         .map(Imgproc::boundingRect)
         .map(this::normalizeRect)
         .filter(this::filtrerRectangle)
         .sorted(this::ordonnerRectangles)
-        .findFirst();
-        
-        if(targetRectangleOpt.isPresent()){
-          targetRectangle = targetRectangleOpt.get();
-          Imgproc.rectangle(outputResize, new Point(targetRectangle.x, targetRectangle.y), new Point(targetRectangle.x+targetRectangle.width, targetRectangle.y+targetRectangle.height), new Scalar(255, 0, 0));
-        }
+        .collect(Collectors.toList());
 
+
+        if(outRectangles.size() > 0) {
+
+          targetRectangle = outRectangles.get(0);
+
+          for (int i = 0; i < outRectangles.size(); i++) {
+            Imgproc.rectangle(outputResize,
+            new Point(targetRectangle.rect.x, targetRectangle.rect.y),
+            new Point(targetRectangle.rect.x + targetRectangle.rect.width, targetRectangle.rect.y+targetRectangle.rect.height),
+            //bgr
+            new Scalar(0, 0, 0));
+          }
+
+          Imgproc.rectangle(outputResize,
+            new Point(targetRectangle.rect.x, targetRectangle.rect.y),
+            new Point(targetRectangle.rect.x + targetRectangle.rect.width, targetRectangle.rect.y+targetRectangle.rect.height),
+            //bgr
+            new Scalar(0, 255, 0));
+
+        }
+        
         videoResize.putFrame(outputResize);
         
       } catch (Exception e) {
@@ -141,7 +160,7 @@ public class Camera extends Subsystem {
     double normalizedW = 2 * rect.width  / (double)K.Camera.WIDTH;
     double normalizedH = 2 * rect.height / (double)K.Camera.HEIGHT;
 
-    return new Rectangle(normalizedX, normalizedY, normalizedW, normalizedH);
+    return new Rectangle(normalizedX, normalizedY, normalizedW, normalizedH, rect);
   }
 
   public boolean filtrerRectangle(Rectangle rectangle) {
@@ -188,12 +207,14 @@ public class Camera extends Subsystem {
   class Rectangle{
 
       public double x, y, width, height;
+      public Rect rect;
 
-      public Rectangle(double x, double y, double width, double height){
+      public Rectangle(double x, double y, double width, double height, Rect rect){
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
+        this.rect = rect;
       }
 
       public double ratio(){
