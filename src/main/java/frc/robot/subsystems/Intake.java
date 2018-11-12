@@ -7,7 +7,10 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
+
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.K;
@@ -17,10 +20,13 @@ public class Intake extends Subsystem {
   private VictorSP moteurTreuil;
   private VictorSP moteurIntake;
   private AnalogPotentiometer pot;
+  private VictorSP moteurPorte;
+  private DigitalInput switchHaut;
+  private DigitalInput switchDescendre;
 
   @Override
   public void initDefaultCommand() {
-    ;
+
   }
 
   public Intake() {
@@ -33,6 +39,12 @@ public class Intake extends Subsystem {
 
     pot = new AnalogPotentiometer(K.Ports.INTAKE_POTENTIOMETRE);
     addChild("Potentiometre", pot);
+
+    moteurPorte = new VictorSP(K.Ports.PORTE_MOTEUR);
+    addChild("Moteur Porte", moteurPorte);
+
+    switchHaut = new DigitalInput(K.Ports.SWITCH_HAUT); 
+  
 
   }
 
@@ -48,7 +60,31 @@ public class Intake extends Subsystem {
 
   }
 
-  public void stop() {
+  public void monterTreuil() {
+
+    moteurIntake.set(K.Intake.VITESSE_TREUIL_MONTER);
+
+  }
+
+  public void descendreTreuil() {
+
+    moteurIntake.set(K.Intake.VITESSE_TREUIL_DESCENDRE);
+
+  }
+
+  public void stopTreuil() {
+
+    moteurTreuil.set(0.0);
+
+  }
+
+  public void stopConvoyeur() {
+
+    moteurIntake.set(0.0);
+
+  }
+
+  public void stopPorte() {
 
     moteurIntake.set(0.0);
 
