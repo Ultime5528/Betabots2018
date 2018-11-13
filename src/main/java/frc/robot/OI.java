@@ -30,16 +30,16 @@ public class OI {
     joystick = new Joystick(0);
 
     button1 = new JoystickButton(joystick, 1);
-    button1.toggleWhenPressed(new PrendreBalles());
+    button1.whileHeld(new PrendreBalles());
 
     button2 = new JoystickButton(joystick, 2);
-    button2.toggleWhenPressed(new CracherBalles());
+    button2.whileHeld(new CracherBalles());
 
     button3 = new JoystickButton(joystick, 3);
-    button3.whenPressed(new DescendreTreuil());
+    button3.whileHeld(new DescendreTreuil());
 
     button4 = new JoystickButton(joystick, 4);
-    button4.whenPressed(new MonterTreuil());
+    button4.whileHeld(new MonterTreuil());
 
 
   }
