@@ -15,17 +15,17 @@ public class CubicInterpolator {
 	public double interpolate(double x) {
 
 		if (x >= c) {
-			
+
 			return b + (1 - b) * (a * x * x * x + (1 - a) * x);
-		
+
 		} else if (x <= -c) {
-		
+
 			return -b + (1 - b) * (a * x * x * x + (1 - a) * x);
-		
+
 		} else {
-			
+
 			return a = interpolate(c) / c * x;
-		
+
 		}
 	}
 
@@ -33,7 +33,7 @@ public class CubicInterpolator {
 		return a;
 	}
 
-    public void stA(double a) {
+	public void stA(double a) {
 
 		this.a = a;
 	}

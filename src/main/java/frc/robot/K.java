@@ -40,10 +40,15 @@ public class K {
   }
 
   public static class Intake {
+
     public static double VITESSE_GOBER = 0.2; 
     public static double VITESSE_CRACHER = -0.2;
     public static double VITESSE_TREUIL_DESCENDRE = 0.2;
     public static double VITESSE_TREUIL_MONTER = 0.2;
+
+    public static double TREUIL_POT_MIN = 0.0;
+    public static double TREUIL_POT_MAX = 2.0;
+
   }
 
 }
