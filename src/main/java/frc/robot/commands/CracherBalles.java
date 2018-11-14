@@ -8,7 +8,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Robot;
 
 public class CracherBalles extends Command {
@@ -38,7 +37,7 @@ public class CracherBalles extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.intake.stop();
+    Robot.intake.stopConvoyeur();
   }
 
   // Called when another command which requires one or more of the same
