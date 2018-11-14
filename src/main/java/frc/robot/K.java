@@ -19,8 +19,8 @@ public class K {
 
     public static final int SWITCH_HAUT = 6;
 
-    public static final int ENCODEUR_GAUCHE_A = 4;
-    public static final int ENCODEUR_GAUCHE_B = 5;
+    public static final int ENCODEUR_GAUCHE_A = 0;
+    public static final int ENCODEUR_GAUCHE_B = 1;
 
     // PWM
     public static final int BASE_PILOTABLE_MOTEUR_DROIT = 0;

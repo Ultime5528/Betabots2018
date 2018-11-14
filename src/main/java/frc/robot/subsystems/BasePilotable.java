@@ -48,9 +48,11 @@ public class BasePilotable extends Subsystem {
     addChild("Gyro", gyro);
 
     encodeurDroite = new Encoder(K.Ports.ENCODEUR_DROITE_A, K.Ports.ENCODEUR_DROITE_B);
+    encodeurDroite.setDistancePerPulse(1/3297.0);
     addChild("Encodeur Droite", encodeurDroite);
     
     encodeurGauche = new Encoder(K.Ports.ENCODEUR_GAUCHE_A, K.Ports.ENCODEUR_GAUCHE_B);
+    encodeurGauche.setDistancePerPulse(1/3297.0);
     addChild("Encodeur Gauche", encodeurGauche);
 
     averageSpeed = new PIDSource() {
