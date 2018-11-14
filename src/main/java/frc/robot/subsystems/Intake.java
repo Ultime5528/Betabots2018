@@ -29,10 +29,10 @@ public class Intake extends Subsystem {
 
   public Intake() {
 
-    moteurIntake = new VictorSP(K.Ports.INTAKE_MOTEUR);
+    moteurIntake = new VictorSP(K.Ports.INTAKE_MOTEUR_CONVOYEUR);
     addChild("Moteur Intake", moteurIntake);
 
-    moteurTreuil = new VictorSP(K.Ports.INTAKE_MOTEUR_TRAPE);
+    moteurTreuil = new VictorSP(K.Ports.INTAKE_MOTEUR_TREUIL);
     addChild("Moteur Treuil", moteurTreuil);
 
     pot = new AnalogPotentiometer(K.Ports.INTAKE_POTENTIOMETRE);
@@ -63,13 +63,13 @@ public class Intake extends Subsystem {
 
   public void monterTreuil() {
 
-    moteurIntake.set(K.Intake.VITESSE_TREUIL_MONTER);
+    moteurTreuil.set(K.Intake.VITESSE_TREUIL_MONTER);
 
   }
 
   public void descendreTreuil() {
 
-    moteurIntake.set(K.Intake.VITESSE_TREUIL_DESCENDRE);
+    moteurTreuil.set(K.Intake.VITESSE_TREUIL_DESCENDRE);
 
   }
 
