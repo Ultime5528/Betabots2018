@@ -20,7 +20,6 @@ public class Intake extends Subsystem {
   private VictorSP moteurTreuil;
   private VictorSP moteurIntake;
   private AnalogPotentiometer pot;
-  private VictorSP moteurPorte;
 
   @Override
   public void initDefaultCommand() {
@@ -38,8 +37,7 @@ public class Intake extends Subsystem {
     pot = new AnalogPotentiometer(K.Ports.INTAKE_POTENTIOMETRE);
     addChild("Potentiometre", pot);
 
-    moteurPorte = new VictorSP(K.Ports.PORTE_MOTEUR);
-    addChild("Moteur Porte", moteurPorte);
+    
 
   }
 
@@ -85,10 +83,5 @@ public class Intake extends Subsystem {
 
   }
 
-  public void stopPorte() {
-
-    moteurIntake.set(0.0);
-
-  }
 
 }
