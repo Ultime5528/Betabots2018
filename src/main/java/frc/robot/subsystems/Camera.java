@@ -54,6 +54,9 @@ public class Camera extends Subsystem {
 
     thread = new Thread(this::processusVision);
     thread.start();
+
+    updateBrightness();
+    updateExposure();
   }
 
   @Override
@@ -83,6 +86,11 @@ public class Camera extends Subsystem {
         outputResize = gripPipeline.resizeImageOutput();
         
         ArrayList<MatOfPoint> contours = gripPipeline.filterContoursOutput();
+
+        List<Rect> gripRects = new ArrayList<Rect>();
+        for (MatOfPoint c : contours) {
+          gripRects.add(Imgproc.boundingRect(c));
+        }
         
         List<Rectangle> outRectangles = contours.stream()
         .map(Imgproc::boundingRect)
@@ -96,12 +104,20 @@ public class Camera extends Subsystem {
 
           targetRectangle = outRectangles.get(0);
 
+          for (int i = 0; i < gripRects.size(); i++) {
+            Imgproc.rectangle(outputResize,
+            new Point(gripRects.get(i).x, gripRects.get(i).y),
+            new Point(gripRects.get(i).x + gripRects.get(i).width, gripRects.get(i).y+gripRects.get(i).height),
+            //bgr
+            new Scalar(0, 0, 255));
+          }
+
           for (int i = 0; i < outRectangles.size(); i++) {
             Imgproc.rectangle(outputResize,
-            new Point(targetRectangle.rect.x, targetRectangle.rect.y),
-            new Point(targetRectangle.rect.x + targetRectangle.rect.width, targetRectangle.rect.y+targetRectangle.rect.height),
+            new Point(outRectangles.get(i).rect.x, outRectangles.get(i).rect.y),
+            new Point(outRectangles.get(i).rect.x + outRectangles.get(i).rect.width, outRectangles.get(i).rect.y+outRectangles.get(i).rect.height),
             //bgr
-            new Scalar(0, 0, 0));
+            new Scalar(30, 90, 250));
           }
 
           Imgproc.rectangle(outputResize,

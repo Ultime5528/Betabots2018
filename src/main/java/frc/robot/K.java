@@ -39,8 +39,8 @@ public class K {
     public static int WIDTH = 320;
     public static int HEIGHT = 240;
 
-    public static int PILOT_BRIGHTNESS = 70;
-    public static int PILOT_EXPOSURE = 50;
+    public static int PILOT_BRIGHTNESS = 0;
+    public static int PILOT_EXPOSURE = 0;
 
     public static double RATIO_OFFSET_ATTERRISSAGE = 1.0;
     
@@ -55,14 +55,14 @@ public class K {
 
     //Process
     //HSV
-    public static double H_MIN = 11.33;
-    public static double H_MAX = 89.38;
+    public static double H_MIN = 68;
+    public static double H_MAX = 112;
 
-		public static double S_MIN = 133.0;
+		public static double S_MIN = 62;
     public static double S_MAX = 255.0;
 
-    public static double V_MIN = 255.0;
-    public static double V_MAX = 126.12;
+    public static double V_MIN = 82;
+    public static double V_MAX = 255;
 
   }
 
