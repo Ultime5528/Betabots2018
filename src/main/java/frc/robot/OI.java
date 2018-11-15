@@ -36,10 +36,10 @@ public class OI {
     button2.whileHeld(new CracherBalles());
 
     button3 = new JoystickButton(joystick, 3);
-    button3.whileHeld(new DescendreTreuil());
+    button3.toggleWhenPressed(new DescendreTreuil());
 
     button4 = new JoystickButton(joystick, 4);
-    button4.whileHeld(new MonterTreuil());
+    button4.toggleWhenPressed(new MonterTreuil());
 
 
   }

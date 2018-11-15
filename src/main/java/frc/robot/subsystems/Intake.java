@@ -20,9 +20,6 @@ public class Intake extends Subsystem {
   private VictorSP moteurTreuil;
   private VictorSP moteurIntake;
   private AnalogPotentiometer pot;
-  private VictorSP moteurPorte;
-  private DigitalInput switchHaut;
-  private DigitalInput switchDescendre;
 
   @Override
   public void initDefaultCommand() {
@@ -40,11 +37,7 @@ public class Intake extends Subsystem {
     pot = new AnalogPotentiometer(K.Ports.INTAKE_POTENTIOMETRE);
     addChild("Potentiometre", pot);
 
-    moteurPorte = new VictorSP(K.Ports.PORTE_MOTEUR);
-    addChild("Moteur Porte", moteurPorte);
-
-    switchHaut = new DigitalInput(K.Ports.SWITCH_HAUT); 
-  
+    
 
   }
 
@@ -57,6 +50,12 @@ public class Intake extends Subsystem {
   public void recracher() {
 
     moteurIntake.set(K.Intake.VITESSE_CRACHER);
+
+  }
+
+  public double getPot() {
+    return pot.get();
+    
 
   }
 
@@ -84,10 +83,5 @@ public class Intake extends Subsystem {
 
   }
 
-  public void stopPorte() {
-
-    moteurIntake.set(0.0);
-
-  }
 
 }
