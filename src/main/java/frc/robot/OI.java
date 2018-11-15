@@ -8,6 +8,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Joystick.AxisType;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.CracherBalles;
 import frc.robot.commands.PrendreBalles;
@@ -30,8 +31,6 @@ public class OI {
 
     button3 = new JoystickButton(joystick, 3);
     button3.toggleWhenPressed(new Viser());
-
-
   }
 
   public Joystick getJoystick() {

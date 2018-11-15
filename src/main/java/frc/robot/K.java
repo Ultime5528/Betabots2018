@@ -24,6 +24,8 @@ public class K {
     // Analogs
     public static final int INTAKE_POTENTIOMETRE = 0;
 
+    //Camera
+    public static final int PORT_LED_CAMERA = 9;
   }
 
   public static class BasePilotable {
@@ -59,11 +61,12 @@ public class K {
     public static double H_MAX = 112;
 
 		public static double S_MIN = 62;
-    public static double S_MAX = 255.0;
+    public static double S_MAX = 255;
 
     public static double V_MIN = 82;
     public static double V_MAX = 255;
 
+    public static double BLUR_VALUE = 1.0;
   }
 
 }

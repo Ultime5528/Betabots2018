@@ -25,6 +25,7 @@ import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.CvSource;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.GripPipeline;
@@ -41,6 +42,7 @@ public class Camera extends Subsystem {
 
   private static UsbCamera camera;
   private GripPipeline gripPipeline;
+  private Spark controlleur;
 
   Rectangle targetRectangle = null;
 
@@ -51,6 +53,8 @@ public class Camera extends Subsystem {
     camera = new UsbCamera("Main Cam", 0);
 
     gripPipeline = new GripPipeline();
+
+    controlleur = new Spark(K.Ports.PORT_LED_CAMERA);
 
     thread = new Thread(this::processusVision);
     thread.start();
@@ -85,7 +89,7 @@ public class Camera extends Subsystem {
 
         outputResize = gripPipeline.resizeImageOutput();
         
-        ArrayList<MatOfPoint> contours = gripPipeline.filterContoursOutput();
+        ArrayList<MatOfPoint> contours = gripPipeline.findContoursOutput();
 
         List<Rect> gripRects = new ArrayList<Rect>();
         for (MatOfPoint c : contours) {
@@ -151,11 +155,13 @@ public class Camera extends Subsystem {
   public void startCamera(){
     camera.setBrightness(0);
     camera.setExposureManual(0);
+    controlleur.set(1.0);
   }
 
   public void stopCamera(){
     camera.setBrightness(K.Camera.PILOT_BRIGHTNESS);
     camera.setExposureManual(K.Camera.PILOT_EXPOSURE);
+    controlleur.set(0.0);
   }
 
   public static void updateBrightness(){
