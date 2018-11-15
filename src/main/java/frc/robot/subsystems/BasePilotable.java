@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PIDSource;
@@ -26,7 +27,7 @@ public class BasePilotable extends Subsystem {
   private VictorSP moteurDroit;
   private VictorSP moteurGauche;
   private DifferentialDrive drive;
-  private ADIS16448_IMU gyro;
+  private ADXRS450_Gyro gyro;
   private Encoder encodeurGauche;
   private Encoder encodeurDroite;
   private LinearDigitalFilter averageSpeedFilter;
@@ -43,7 +44,7 @@ public class BasePilotable extends Subsystem {
     drive = new DifferentialDrive(moteurGauche, moteurDroit);
     addChild("Drive", drive);
 
-    gyro = new ADIS16448_IMU(Axis.kY);
+    gyro = new ADXRS450_Gyro();
 		gyro.calibrate();
     addChild("Gyro", gyro);
 

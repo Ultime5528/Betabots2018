@@ -9,6 +9,8 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.AutoPlateformeDroiteA;
 import frc.robot.commands.CracherBalles;
 import frc.robot.commands.PrendreBalles;
 import frc.robot.util.CubicInterpolator;
@@ -40,6 +42,8 @@ public class OI {
 
     button4 = new JoystickButton(joystick, 4);
     button4.toggleWhenPressed(new MonterTreuil());
+
+    SmartDashboard.putData("AutonomePlateformeDroiteA", new AutoPlateformeDroiteA());
 
 
   }

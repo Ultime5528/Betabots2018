@@ -7,10 +7,8 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.K;
