@@ -17,10 +17,11 @@ public class K {
     public static final int ENCODEUR_DROITE_A = 2;
     public static final int ENCODEUR_DROITE_B = 3;
 
-    public static final int SWITCH_HAUT = 6;
+    public static final int PORTE_SWITCH_HAUT = 4;
+    public static final int PORTE_SWITCH_BAS = 5;
 
-    public static final int ENCODEUR_GAUCHE_A = 4;
-    public static final int ENCODEUR_GAUCHE_B = 5;
+    public static final int ENCODEUR_GAUCHE_A = 0;
+    public static final int ENCODEUR_GAUCHE_B = 1;
 
     // PWM
     public static final int BASE_PILOTABLE_MOTEUR_DROIT = 0;
@@ -54,7 +55,6 @@ public class K {
     
     public static double VITESSE_PORTE_OUVRIR = 1;
     public static double VITESSE_PORTE_FERMER = -1;
-    public static double TEMPS_PORTE = 3;
   }
 
 }

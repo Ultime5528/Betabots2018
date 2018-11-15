@@ -7,6 +7,8 @@
 
 package frc.robot.commands;
 
+import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
+
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.K;
 import frc.robot.Robot;
@@ -22,7 +24,7 @@ public class FermerPorte extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    setTimeout(K.Porte.TEMPS_PORTE);
+    
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -36,7 +38,7 @@ public class FermerPorte extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return isTimedOut();
+    return Robot.porte.estEnBas();
   }
 
   // Called once after isFinished returns true
