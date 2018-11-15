@@ -7,10 +7,8 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
-
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
-import edu.wpi.first.wpilibj.DigitalInput;
+
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.K;
@@ -37,8 +35,6 @@ public class Intake extends Subsystem {
     pot = new AnalogPotentiometer(K.Ports.INTAKE_POTENTIOMETRE);
     addChild("Potentiometre", pot);
 
-    
-
   }
 
   public void gober() {
@@ -55,7 +51,6 @@ public class Intake extends Subsystem {
 
   public double getPot() {
     return pot.get();
-    
 
   }
 
@@ -82,6 +77,5 @@ public class Intake extends Subsystem {
     moteurIntake.set(0.0);
 
   }
-
 
 }

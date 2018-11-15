@@ -13,7 +13,9 @@ import frc.robot.commands.CracherBalles;
 import frc.robot.commands.PrendreBalles;
 import frc.robot.util.CubicInterpolator;
 import frc.robot.commands.DescendreTreuil;
+import frc.robot.commands.FermerPorte;
 import frc.robot.commands.MonterTreuil;
+import frc.robot.commands.OuvrirPorte;
 
 
 public class OI {
@@ -23,6 +25,8 @@ public class OI {
   private JoystickButton button2;
   private JoystickButton button3;
   private JoystickButton button4;
+  private JoystickButton button5;
+  private JoystickButton button6;
   private CubicInterpolator interY;
 
   public OI() {
@@ -40,6 +44,12 @@ public class OI {
 
     button4 = new JoystickButton(joystick, 4);
     button4.toggleWhenPressed(new MonterTreuil());
+
+    button5 = new JoystickButton(joystick, 5);
+    button5.toggleWhenPressed(new OuvrirPorte());
+
+    button6 = new JoystickButton(joystick, 6);
+    button6.toggleWhenPressed(new FermerPorte());
 
 
   }

@@ -44,9 +44,17 @@ public class K {
     public static double VITESSE_CRACHER = 0.8;
     public static double VITESSE_TREUIL_DESCENDRE = -0.2;
     public static double VITESSE_TREUIL_MONTER = 0.7;
-
+    
     public static double TREUIL_POT_MIN = 0.0;
     public static double TREUIL_POT_MAX = 2.0;
+ 
+  }
+
+  public static class Porte {
+    
+    public static double VITESSE_PORTE_OUVRIR = 1;
+    public static double VITESSE_PORTE_FERMER = -1;
+    public static double TEMPS_PORTE = 3;
   }
 
 }
