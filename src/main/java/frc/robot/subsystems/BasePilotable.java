@@ -16,10 +16,8 @@ import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.filters.LinearDigitalFilter;
-import frc.robot.ADIS16448_IMU;
 import frc.robot.K;
 import frc.robot.Robot;
-import frc.robot.ADIS16448_IMU.Axis;
 import frc.robot.commands.Piloter;
 
 public class BasePilotable extends Subsystem {
