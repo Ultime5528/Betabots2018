@@ -53,8 +53,4 @@ public class BasePilotable extends Subsystem {
     moteurDroit.set(0);
     moteurGauche.set(0);
   }
-
-  public void tankDrive(double leftSpeed, double rightSpeed) {
-    drive.tankDrive(leftSpeed, rightSpeed);
-  }
 }

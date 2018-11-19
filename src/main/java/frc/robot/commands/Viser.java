@@ -18,7 +18,7 @@ public class Viser extends Command {
   public Viser() {
     requires(Robot.basePilotable);
   }
-
+  
   @Override
   protected void initialize() {
     centreX = 0.0;
@@ -29,13 +29,9 @@ public class Viser extends Command {
 
     centreX = Robot.camera.getCenterX();
 
-    int signe = (int) Math.signum(centreX);
+    double turn = Math.signum(centreX) * K.Camera.TURN_SPEED;
 
-    if (signe == -1) {
-      Robot.basePilotable.tankDrive(-K.Camera.TURN_SPEED, K.Camera.TURN_SPEED);
-    } else if(signe == 1){
-      Robot.basePilotable.tankDrive(K.Camera.TURN_SPEED, -K.Camera.TURN_SPEED);
-    }
+    Robot.basePilotable.arcadeDrive(0, turn);;
 
   }
 
