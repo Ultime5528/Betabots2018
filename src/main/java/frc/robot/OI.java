@@ -45,6 +45,8 @@ public class OI {
 
     SmartDashboard.putData("AutonomePlateformeDroiteA", new AutoPlateformeDroiteA());
 
+    
+
 
   }
 

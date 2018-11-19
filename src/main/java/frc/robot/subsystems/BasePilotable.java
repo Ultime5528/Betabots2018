@@ -40,6 +40,7 @@ public class BasePilotable extends Subsystem {
     addChild("Moteur Gauche", moteurGauche);
 
     drive = new DifferentialDrive(moteurGauche, moteurDroit);
+    drive.setMaxOutput(K.BasePilotable.VITESSE_BASE_PILOTABLE_MAX);
     addChild("Drive", drive);
 
     gyro = new ADXRS450_Gyro();

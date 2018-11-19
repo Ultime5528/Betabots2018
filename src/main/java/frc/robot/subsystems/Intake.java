@@ -7,11 +7,11 @@
 
 package frc.robot.subsystems;
 
-
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.K;
+import frc.robot.commands.MaintienTreuil;
 
 public class Intake extends Subsystem {
 
@@ -21,7 +21,7 @@ public class Intake extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-
+    setDefaultCommand(new MaintienTreuil());
   }
 
   public Intake() {
@@ -34,8 +34,6 @@ public class Intake extends Subsystem {
 
     pot = new AnalogPotentiometer(K.Ports.INTAKE_POTENTIOMETRE);
     addChild("Potentiometre", pot);
-
-    
 
   }
 
@@ -53,7 +51,6 @@ public class Intake extends Subsystem {
 
   public double getPot() {
     return pot.get();
-    
 
   }
 
@@ -69,6 +66,15 @@ public class Intake extends Subsystem {
 
   }
 
+  public void maintienTreuil() {
+    if (getPot() > 0.1) {
+
+      moteurTreuil.set(K.Intake.VITESSE_TREUIL_MAINTIEN);
+    } else{
+      moteurTreuil.set(0.0);      }
+    
+  }
+
   public void stopTreuil() {
 
     moteurTreuil.set(0.0);
@@ -80,6 +86,5 @@ public class Intake extends Subsystem {
     moteurIntake.set(0.0);
 
   }
-
 
 }

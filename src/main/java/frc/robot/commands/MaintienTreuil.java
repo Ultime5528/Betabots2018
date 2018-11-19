@@ -8,12 +8,11 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.K;
 import frc.robot.Robot;
 
-public class DescendreTreuil extends Command {
-  public DescendreTreuil() {
-    requires(Robot.intake);
+public class MaintienTreuil extends Command {
+  public MaintienTreuil() {
+    requires(Robot.intake); 
   }
 
   // Called just before this Command runs the first time
@@ -24,19 +23,20 @@ public class DescendreTreuil extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.intake.descendreTreuil();
+
+    Robot.intake.maintienTreuil();
+    
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Robot.intake.getPot() <= K.Intake.TREUIL_POT_MIN;
+    return false;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    System.out.println("Fin descendre treuil");
     Robot.intake.stopTreuil();
   }
 
