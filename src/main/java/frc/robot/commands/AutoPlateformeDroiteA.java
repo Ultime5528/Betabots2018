@@ -18,9 +18,13 @@ public class AutoPlateformeDroiteA extends CommandGroup {
    
     addSequential(new SuivreTrajectoire(new Waypoint[] {
 				new Waypoint(0, 0, 0),
-				new Waypoint(1, 0.5, 0),
-    }, 0.42, -1), 4);
+        new Waypoint(1.37, 0.3, 0)
+    }, 0.25, -0.25), 4);
 
     
+    addParallel(new DescendreTreuil(), 3);
+    
+    //addSequential(new PrendreBalles(), 3);
+
   }
 }
