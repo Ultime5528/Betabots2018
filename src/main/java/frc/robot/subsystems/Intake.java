@@ -54,15 +54,24 @@ public class Intake extends Subsystem {
 
   }
 
-  public void monterTreuil() {
-
-    moteurTreuil.set(K.Intake.VITESSE_TREUIL_MONTER);
-
-  }
-
   public void descendreTreuil() {
 
-    moteurTreuil.set(K.Intake.VITESSE_TREUIL_DESCENDRE);
+    if (K.Intake.TREUIL_POT_MIN > getPot()) {
+      moteurTreuil.set(0.0);
+    } else {
+      moteurTreuil.set(K.Intake.VITESSE_TREUIL_DESCENDRE);
+
+    }
+  }
+
+  public void monterTreuil() {
+
+    if (K.Intake.TREUIL_POT_MAX < getPot()) {
+      moteurTreuil.set(0.0);
+    } else {
+      moteurTreuil.set(K.Intake.VITESSE_TREUIL_MONTER);
+
+    }
 
   }
 
@@ -70,9 +79,10 @@ public class Intake extends Subsystem {
     if (getPot() > 0.1) {
 
       moteurTreuil.set(K.Intake.VITESSE_TREUIL_MAINTIEN);
-    } else{
-      moteurTreuil.set(0.0);      }
-    
+    } else {
+      moteurTreuil.set(0.0);
+    }
+
   }
 
   public void stopTreuil() {

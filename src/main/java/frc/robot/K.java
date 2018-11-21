@@ -50,6 +50,7 @@ public class K {
 
     public static double TREUIL_POT_MIN = 0.1;
     public static double TREUIL_POT_MAX = 0.30;
+    public static double TREUIL_TRESHOLD = 0.05;
   }
 
 }

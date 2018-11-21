@@ -25,6 +25,7 @@ public class OI {
   private JoystickButton button3;
   private JoystickButton button4;
   private JoystickButton button7;
+  
   private CubicInterpolator interY;
 
   public OI() {
@@ -39,6 +40,8 @@ public class OI {
 
     button3 = new JoystickButton(joystick, 3);
     button3.toggleWhenPressed(new DescendreTreuil());
+
+
 
     button4 = new JoystickButton(joystick, 4);
     button4.toggleWhenPressed(new MonterTreuil());
