@@ -26,6 +26,8 @@ public class OI {
   private JoystickButton button2;
   private JoystickButton button3;
   private JoystickButton button4;
+  private JoystickButton button5;
+  private JoystickButton button6;
   private JoystickButton button7;
   
   private CubicInterpolator interY;
