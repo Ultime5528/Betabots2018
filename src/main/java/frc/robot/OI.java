@@ -15,7 +15,9 @@ import frc.robot.commands.CracherBalles;
 import frc.robot.commands.PrendreBalles;
 import frc.robot.util.CubicInterpolator;
 import frc.robot.commands.DescendreTreuil;
+import frc.robot.commands.FermerPorte;
 import frc.robot.commands.MonterTreuil;
+import frc.robot.commands.OuvrirPorte;
 
 public class OI {
 
@@ -48,8 +50,14 @@ public class OI {
 
     button7 = new JoystickButton(joystick, 7);
     button7.toggleWhenPressed(new AutoPlateformeDroiteA());
+    button5 = new JoystickButton(joystick, 5);
+    button5.toggleWhenPressed(new OuvrirPorte());
 
     SmartDashboard.putData("AutonomePlateformeDroiteA", new AutoPlateformeDroiteA());
+
+    button6 = new JoystickButton(joystick, 6);
+    button6.toggleWhenPressed(new FermerPorte());
+
 
   }
 

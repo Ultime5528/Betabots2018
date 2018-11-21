@@ -17,7 +17,8 @@ public class K {
     public static final int ENCODEUR_DROITE_A = 2;
     public static final int ENCODEUR_DROITE_B = 3;
 
-    public static final int SWITCH_HAUT = 6;
+    public static final int PORTE_SWITCH_HAUT = 4;
+    public static final int PORTE_SWITCH_BAS = 5;
 
     public static final int ENCODEUR_GAUCHE_A = 0;
     public static final int ENCODEUR_GAUCHE_B = 1;
@@ -51,6 +52,12 @@ public class K {
     public static double TREUIL_POT_MIN = 0.1;
     public static double TREUIL_POT_MAX = 0.30;
     public static double TREUIL_TRESHOLD = 0.05;
+  }
+
+  public static class Porte {
+    
+    public static double VITESSE_PORTE_OUVRIR = 1;
+    public static double VITESSE_PORTE_FERMER = -1;
   }
 
 }

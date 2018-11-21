@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.BasePilotable;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Porte;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -27,6 +28,7 @@ public class Robot extends TimedRobot {
   public static BasePilotable basePilotable = new BasePilotable();
   public static OI oi;
   public static Intake intake = new Intake();
+  public static Porte porte = new Porte();
 
   /**
    * This function is run when the robot is first started up and should be
