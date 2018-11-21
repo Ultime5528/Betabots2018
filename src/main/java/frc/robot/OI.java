@@ -8,9 +8,11 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.AutoPlateformeDroiteA;
+import frc.robot.commands.BougerTreuil;
 import frc.robot.commands.CracherBalles;
 import frc.robot.commands.PrendreBalles;
 import frc.robot.util.CubicInterpolator;
@@ -22,33 +24,34 @@ import frc.robot.commands.OuvrirPorte;
 public class OI {
 
   private Joystick joystick;
-  private JoystickButton button1;
-  private JoystickButton button2;
-  private JoystickButton button3;
-  private JoystickButton button4;
-  private JoystickButton button5;
+  private XboxController xbox;
+  private JoystickButton buttonA;
+  private JoystickButton buttonB;
+  private JoystickButton buttonX;
+  private JoystickButton buttonY;
   private JoystickButton button6;
+  private JoystickButton button5;
   private JoystickButton button7;
-  
+
   private CubicInterpolator interY;
 
   public OI() {
 
     joystick = new Joystick(0);
+    xbox = new XboxController(1);
 
-    button1 = new JoystickButton(joystick, 1);
-    button1.whileHeld(new PrendreBalles());
+    buttonA = new JoystickButton(xbox, 1);
+    buttonA.whileHeld(new BougerTreuil(K.Intake.TREUIL_POT_MIN));
 
-    button2 = new JoystickButton(joystick, 2);
-    button2.whileHeld(new CracherBalles());
+    buttonB = new JoystickButton(xbox, 2);
+    buttonB.whileHeld(new BougerTreuil(K.Intake.TREUIL_HAUTEUR_CAROTTE));
 
-    button3 = new JoystickButton(joystick, 3);
-    button3.toggleWhenPressed(new DescendreTreuil());
+    buttonX = new JoystickButton(xbox, 3);
+    buttonX.toggleWhenPressed(new BougerTreuil(K.Intake.TREUIL_POT_MAX));
 
 
-
-    button4 = new JoystickButton(joystick, 4);
-    button4.toggleWhenPressed(new MonterTreuil());
+    buttonY = new JoystickButton(joystick, 4);
+    buttonY.toggleWhenPressed(new MonterTreuil());
 
     button7 = new JoystickButton(joystick, 7);
     button7.toggleWhenPressed(new AutoPlateformeDroiteA());

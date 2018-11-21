@@ -52,6 +52,8 @@ public class K {
     public static double TREUIL_POT_MIN = 0.1;
     public static double TREUIL_POT_MAX = 0.30;
     public static double TREUIL_TRESHOLD = 0.05;
+    public static double TREUIL_HAUTEUR_CAROTTE = 0.15;
+    public static double TREUIL_HAUTEUR_BALLE = 0.11;
   }
 
   public static class Porte {
