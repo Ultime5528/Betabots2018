@@ -47,7 +47,7 @@ public class Porte extends Subsystem {
 
   }
   public boolean estEnHaut() {
-    return switchHaut.get();
+    return !switchHaut.get();
   }
   public boolean estEnBas(){
     return switchBas.get();

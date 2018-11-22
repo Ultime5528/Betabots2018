@@ -14,21 +14,22 @@ public class K {
 
   public static class Ports {
 
+    public static final int ENCODEUR_GAUCHE_A = 0;
+    public static final int ENCODEUR_GAUCHE_B = 1;
+    
     public static final int ENCODEUR_DROITE_A = 2;
     public static final int ENCODEUR_DROITE_B = 3;
 
-    public static final int PORTE_SWITCH_HAUT = 4;
-    public static final int PORTE_SWITCH_BAS = 5;
+    public static final int PORTE_SWITCH_BAS = 4;
+    public static final int PORTE_SWITCH_HAUT = 5;
 
-    public static final int ENCODEUR_GAUCHE_A = 0;
-    public static final int ENCODEUR_GAUCHE_B = 1;
 
     // PWM
     public static final int BASE_PILOTABLE_MOTEUR_DROIT = 0;
     public static final int BASE_PILOTABLE_MOTEUR_GAUCHE = 1;
     public static final int INTAKE_MOTEUR_TREUIL = 8;
     public static final int INTAKE_MOTEUR_CONVOYEUR = 7;
-    public static final int PORTE_MOTEUR = 4;
+    public static final int PORTE_MOTEUR = 9;
 
 
     // Analogs
@@ -58,8 +59,8 @@ public class K {
 
   public static class Porte {
     
-    public static double VITESSE_PORTE_OUVRIR = 1;
-    public static double VITESSE_PORTE_FERMER = -1;
+    public static double VITESSE_PORTE_OUVRIR = -1;
+    public static double VITESSE_PORTE_FERMER = 1;
   }
 
 }
