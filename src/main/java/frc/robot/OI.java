@@ -50,8 +50,8 @@ public class OI {
     buttonX.toggleWhenPressed(new BougerTreuil(K.Intake.TREUIL_POT_MAX));
 
 
-    buttonY = new JoystickButton(joystick, 4);
-    buttonY.toggleWhenPressed(new MonterTreuil());
+    buttonY = new JoystickButton(xbox, 4);
+    buttonY.toggleWhenPressed(new BougerTreuil(K.Intake.TREUIL_HAUTEUR_BALLE));
 
     button7 = new JoystickButton(joystick, 7);
     button7.toggleWhenPressed(new AutoPlateformeDroiteA());
