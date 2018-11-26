@@ -8,9 +8,11 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
+
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.K;
+import frc.robot.commands.MaintienTreuil;
 
 public class Intake extends Subsystem {
 
@@ -20,14 +22,15 @@ public class Intake extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
+    setDefaultCommand(new MaintienTreuil());
   }
 
   public Intake() {
 
-    moteurIntake = new VictorSP(K.Ports.INTAKE_MOTEUR);
+    moteurIntake = new VictorSP(K.Ports.INTAKE_MOTEUR_CONVOYEUR);
     addChild("Moteur Intake", moteurIntake);
 
-    moteurTreuil = new VictorSP(K.Ports.INTAKE_MOTEUR_TRAPE);
+    moteurTreuil = new VictorSP(K.Ports.INTAKE_MOTEUR_TREUIL);
     addChild("Moteur Treuil", moteurTreuil);
 
     pot = new AnalogPotentiometer(K.Ports.INTAKE_POTENTIOMETRE);
@@ -47,7 +50,49 @@ public class Intake extends Subsystem {
 
   }
 
-  public void stop() {
+  public double getPot() {
+    return pot.get();
+
+  }
+
+  public void descendreTreuil() {
+
+    if (K.Intake.TREUIL_POT_MIN > getPot()) {
+      moteurTreuil.set(0.0);
+    } else {
+      moteurTreuil.set(K.Intake.VITESSE_TREUIL_DESCENDRE);
+
+    }
+  }
+
+  public void monterTreuil() {
+
+    if (K.Intake.TREUIL_POT_MAX < getPot()) {
+      moteurTreuil.set(0.0);
+    } else {
+      moteurTreuil.set(K.Intake.VITESSE_TREUIL_MONTER);
+
+    }
+
+  }
+
+  public void maintienTreuil() {
+    if (getPot() > 0.1) {
+
+      moteurTreuil.set(K.Intake.VITESSE_TREUIL_MAINTIEN);
+    } else {
+      moteurTreuil.set(0.0);
+    }
+
+  }
+
+  public void stopTreuil() {
+
+    moteurTreuil.set(0.0);
+
+  }
+
+  public void stopConvoyeur() {
 
     moteurIntake.set(0.0);
 

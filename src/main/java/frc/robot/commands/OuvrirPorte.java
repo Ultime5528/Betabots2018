@@ -8,32 +8,46 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.K;
 import frc.robot.Robot;
 
-public class PrendreBalles extends Command {
-  public PrendreBalles() {
-    requires(Robot.intake);
+public class OuvrirPorte extends Command {
+
+  public OuvrirPorte() {
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
+    requires(Robot.porte);
+    
   }
 
+  // Called just before this Command runs the first time
   @Override
-  protected void initialize() {
+  protected void initialize() { 
+   
   }
 
+  // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.intake.gober();
+  
+    Robot.porte.ouvrirPorte();
+
   }
 
+  // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return Robot.porte.estEnHaut();
   }
 
+  // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.intake.stopConvoyeur();
+    Robot.porte.stopPorte();
   }
 
+  // Called when another command which requires one or more of the same
+  // subsystems is scheduled to run
   @Override
   protected void interrupted() {
     end();

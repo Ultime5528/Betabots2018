@@ -7,35 +7,30 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.Robot;
+import edu.wpi.first.wpilibj.command.CommandGroup;
+import frc.robot.subsystems.Intake;
+import jaci.pathfinder.Pathfinder;
+import jaci.pathfinder.Waypoint;
 
-public class PrendreBalles extends Command {
-  public PrendreBalles() {
-    requires(Robot.intake);
+public class AutoPlateformeDroite extends CommandGroup {
+  /**
+   * Add your docs here.
+*/
+
+  public AutoPlateformeDroite() {
+
+    addSequential(new SuivreTrajectoire(new Waypoint[] {
+      new Waypoint(0, 0, Pathfinder.d2r(0)),
+      new Waypoint(-1.5, 1.5, Pathfinder.d2r(45))
+      }, 0.55, -0.1));
+
+    addParallel(new PrendreBalles());
+
+  
+
   }
 
-  @Override
-  protected void initialize() {
-  }
-
-  @Override
-  protected void execute() {
-    Robot.intake.gober();
-  }
-
-  @Override
-  protected boolean isFinished() {
-    return false;
-  }
-
-  @Override
-  protected void end() {
-    Robot.intake.stopConvoyeur();
-  }
-
-  @Override
-  protected void interrupted() {
-    end();
-  }
 }
+
+ 
+ 

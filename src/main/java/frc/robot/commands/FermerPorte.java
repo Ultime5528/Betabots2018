@@ -7,33 +7,48 @@
 
 package frc.robot.commands;
 
+import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
+
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.K;
 import frc.robot.Robot;
 
-public class PrendreBalles extends Command {
-  public PrendreBalles() {
-    requires(Robot.intake);
+public class FermerPorte extends Command {
+  public FermerPorte() {
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
+    requires(Robot.porte);
+    
   }
 
+  // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    
   }
 
+  // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.intake.gober();
+
+    Robot.porte.fermerPorte();
+    
   }
 
+  // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return Robot.porte.estEnBas();
   }
 
+  // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.intake.stopConvoyeur();
+    Robot.porte.stopPorte();
   }
 
+  // Called when another command which requires one or more of the same
+  // subsystems is scheduled to run
   @Override
   protected void interrupted() {
     end();
