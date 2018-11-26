@@ -10,23 +10,22 @@ public class CubicInterpolator {
 	 * @param deadzoneVitesse Définit le niveau minimal de vitesse. 
 	 * @param deadzoneJoystick Définit le niveau minimal de poussée sur le joystick.
 	 */
-	public CubicInterpolator(double _courbure, double _deadzoneVitesse, double _deadzoneJoystick) {
+	public CubicInterpolator(double courbure, double deadzoneVitesse, double deadzoneJoystick) {
 
-		this.courbure = _courbure;
-		this.deadzoneVitesse = _deadzoneVitesse;
-		this.deadzoneJoystick = _deadzoneJoystick;
-
+		this.courbure = courbure;
+		this.deadzoneVitesse = deadzoneVitesse;
+		this.deadzoneJoystick = deadzoneJoystick;
 	}
 
 	public double interpolate(double valeur) {
 
 		if (valeur >= deadzoneJoystick) {
 
-			return deadzoneVitesse + (1 - deadzoneVitesse) * (courbure* valeur * valeur * valeur + (1 - courbure) * valeur);
+			return deadzoneVitesse + (1 - deadzoneVitesse) * (courbure * valeur * valeur * valeur + (1 - courbure) * valeur);
 
 		} else if (valeur <= -deadzoneJoystick) {
 
-			return -deadzoneVitesse + (1 - deadzoneVitesse) * (courbure* valeur * valeur * valeur + (1 - courbure) * valeur);
+			return -deadzoneVitesse + (1 - deadzoneVitesse) * (courbure * valeur * valeur * valeur + (1 - courbure) * valeur);
 
 		} else {
 
@@ -39,25 +38,25 @@ public class CubicInterpolator {
 		return courbure;
 	}
 
-	public void setCourbure(double _courbure) {
+	public void setCourbure(double courbure) {
 
-		this.courbure = _courbure;
+		this.courbure = courbure;
 	}
 
 	public double getDeadzoneVitesse() {
 		return deadzoneVitesse;
 	}
 
-	public void setDeadzoneVitesse(double _deadzoneVitesse) {
-		this.deadzoneVitesse = _deadzoneVitesse;
+	public void setDeadzoneVitesse(double deadzoneVitesse) {
+		this.deadzoneVitesse = deadzoneVitesse;
 	}
 
 	public double getDeadzoneJoystick() {
 		return deadzoneJoystick;
 	}
 
-	public void setDeadzoneJoystick(double _deadzoneJoystick) {
-		this.deadzoneJoystick = _deadzoneJoystick;
+	public void setDeadzoneJoystick(double deadzoneJoystick) {
+		this.deadzoneJoystick = deadzoneJoystick;
 	}
 
 }
