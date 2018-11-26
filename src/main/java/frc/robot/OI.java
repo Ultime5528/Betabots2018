@@ -40,6 +40,8 @@ public class OI {
 
   public OI() {
 
+    interY = new CubicInterpolator(K.BasePilotable.INTERY_COURBURE, K.BasePilotable.INTERY_DEADZONE_VITESSE, K.BasePilotable.INTERY_DEADZONE_JOYSTICK);
+
     joystick = new Joystick(0);
     xbox = new XboxController(1);
 

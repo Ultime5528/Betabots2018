@@ -2,56 +2,62 @@ package frc.robot.util;
 
 public class CubicInterpolator {
 
-	private double a, b, c;
+	private double courbure, deadzoneVitesse, deadzoneJoystick;
 
-	public CubicInterpolator(double a, double b, double c) {
+	/**
+	 * 
+	 * @param courbure Définit le niveau de courbure. 0 : DROIT => 1 : COURBE MAXIMALE
+	 * @param deadzoneVitesse Définit le niveau minimal de vitesse. 
+	 * @param deadzoneJoystick Définit le niveau minimal de poussée sur le joystick.
+	 */
+	public CubicInterpolator(double _courbure, double _deadzoneVitesse, double _deadzoneJoystick) {
 
-		this.a = a;
-		this.b = b;
-		this.c = c;
+		this.courbure = _courbure;
+		this.deadzoneVitesse = _deadzoneVitesse;
+		this.deadzoneJoystick = _deadzoneJoystick;
 
 	}
 
-	public double interpolate(double x) {
+	public double interpolate(double valeur) {
 
-		if (x >= c) {
+		if (valeur >= deadzoneJoystick) {
 
-			return b + (1 - b) * (a * x * x * x + (1 - a) * x);
+			return deadzoneVitesse + (1 - deadzoneVitesse) * (courbure* valeur * valeur * valeur + (1 - courbure) * valeur);
 
-		} else if (x <= -c) {
+		} else if (valeur <= -deadzoneJoystick) {
 
-			return -b + (1 - b) * (a * x * x * x + (1 - a) * x);
+			return -deadzoneVitesse + (1 - deadzoneVitesse) * (courbure* valeur * valeur * valeur + (1 - courbure) * valeur);
 
 		} else {
 
-			return a = interpolate(c) / c * x;
+			return interpolate(deadzoneJoystick) / deadzoneJoystick * valeur;
 
 		}
 	}
 
 	public double getA() {
-		return a;
+		return courbure;
 	}
 
-	public void stA(double a) {
+	public void setCourbure(double _courbure) {
 
-		this.a = a;
+		this.courbure = _courbure;
 	}
 
-	public double getB() {
-		return b;
+	public double getDeadzoneVitesse() {
+		return deadzoneVitesse;
 	}
 
-	public void setB(double b) {
-		this.b = b;
+	public void setDeadzoneVitesse(double _deadzoneVitesse) {
+		this.deadzoneVitesse = _deadzoneVitesse;
 	}
 
-	public double getC() {
-		return c;
+	public double getDeadzoneJoystick() {
+		return deadzoneJoystick;
 	}
 
-	public void setC(double c) {
-		this.c = c;
+	public void setDeadzoneJoystick(double _deadzoneJoystick) {
+		this.deadzoneJoystick = _deadzoneJoystick;
 	}
 
 }

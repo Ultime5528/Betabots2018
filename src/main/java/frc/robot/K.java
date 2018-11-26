@@ -43,6 +43,10 @@ public class K {
 
     public static final double VITESSE_BASE_PILOTABLE_MAX = 0.5 ;
 
+    public static final double INTERY_COURBURE = 1;
+    public static final double INTERY_DEADZONE_VITESSE = 1;
+    public static final double INTERY_DEADZONE_JOYSTICK = 1;
+
   }
 
   public static class Intake {

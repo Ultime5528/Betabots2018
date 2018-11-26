@@ -31,7 +31,7 @@ public class Viser extends Command {
 
     double turn = Math.signum(centreX) * K.Camera.TURN_SPEED;
 
-    Robot.basePilotable.arcadeDrive(0, turn);;
+    Robot.basePilotable.arcadeDrive(0, turn);
 
   }
 
