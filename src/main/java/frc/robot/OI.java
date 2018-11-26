@@ -11,10 +11,15 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.ADIS16448_IMU.Axis;
 import frc.robot.commands.AutoPlateformeDroiteA;
 import frc.robot.commands.BougerTreuil;
 import frc.robot.commands.CracherBalles;
 import frc.robot.commands.PrendreBalles;
+import frc.robot.triggers.AxisDownTrigger;
+import frc.robot.triggers.AxisUpTrigger;
+import frc.robot.triggers.POVTrigger;
+import frc.robot.triggers.POVTrigger.Arrow;
 import frc.robot.util.CubicInterpolator;
 import frc.robot.commands.DescendreTreuil;
 import frc.robot.commands.FermerPorte;
@@ -29,6 +34,12 @@ public class OI {
   private JoystickButton buttonB;
   private JoystickButton buttonX;
   private JoystickButton buttonY;
+  private AxisDownTrigger buttonLT;
+  private AxisDownTrigger buttonRT;
+  private AxisUpTrigger joystickGaucheHaut;
+  private AxisDownTrigger joystickGaucheBas;
+  private POVTrigger croixHaut;
+  private POVTrigger croixBas;
   private JoystickButton button6;
   private JoystickButton button5;
   private JoystickButton button7;
@@ -41,27 +52,46 @@ public class OI {
     xbox = new XboxController(1);
 
     buttonA = new JoystickButton(xbox, 1);
-    buttonA.whileHeld(new BougerTreuil(K.Intake.TREUIL_POT_MIN));
+    buttonA.toggleWhenPressed(new BougerTreuil(K.Intake.TREUIL_POT_MIN));
 
     buttonB = new JoystickButton(xbox, 2);
-    buttonB.whileHeld(new BougerTreuil(K.Intake.TREUIL_HAUTEUR_CAROTTE));
+    buttonB.toggleWhenPressed(new BougerTreuil(K.Intake.TREUIL_HAUTEUR_CAROTTE));
 
     buttonX = new JoystickButton(xbox, 3);
-    buttonX.toggleWhenPressed(new BougerTreuil(K.Intake.TREUIL_POT_MAX));
+    buttonX.toggleWhenPressed(new BougerTreuil(K.Intake.TREUIL_HAUTEUR_BALLE));
 
 
     buttonY = new JoystickButton(xbox, 4);
-    buttonY.toggleWhenPressed(new BougerTreuil(K.Intake.TREUIL_HAUTEUR_BALLE));
+    buttonY.toggleWhenPressed(new BougerTreuil(K.Intake.TREUIL_POT_MAX));
+
+
+
+
+    buttonLT = new AxisDownTrigger(xbox, 2);
+    buttonLT.toggleWhenActive(new PrendreBalles());
+   
+    buttonRT = new AxisDownTrigger(xbox, 3);
+    buttonRT.toggleWhenActive(new CracherBalles());
+
+    joystickGaucheBas = new AxisDownTrigger(xbox, 1);
+    joystickGaucheBas.whileActive(new DescendreTreuil());
+
+    joystickGaucheHaut = new AxisUpTrigger(xbox, 1);
+    joystickGaucheHaut.whileActive(new MonterTreuil());
+
+    croixHaut = new POVTrigger(xbox,  Arrow.UP);
+    croixHaut.whenActive(new OuvrirPorte());
+
+    croixBas = new POVTrigger(xbox, Arrow.DOWN);
+    croixBas.whenActive(new FermerPorte());
 
     button7 = new JoystickButton(joystick, 7);
     button7.toggleWhenPressed(new AutoPlateformeDroiteA());
-    button5 = new JoystickButton(joystick, 5);
-    button5.toggleWhenPressed(new OuvrirPorte());
+    
+
 
     SmartDashboard.putData("AutonomePlateformeDroiteA", new AutoPlateformeDroiteA());
 
-    button6 = new JoystickButton(joystick, 6);
-    button6.toggleWhenPressed(new FermerPorte());
 
 
   }
