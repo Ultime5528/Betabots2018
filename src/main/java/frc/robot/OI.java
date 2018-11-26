@@ -9,6 +9,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.Joystick.AxisType;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.ADIS16448_IMU.Axis;
@@ -20,6 +21,7 @@ import frc.robot.triggers.AxisDownTrigger;
 import frc.robot.triggers.AxisUpTrigger;
 import frc.robot.triggers.POVTrigger;
 import frc.robot.triggers.POVTrigger.Arrow;
+import frc.robot.commands.Viser;
 import frc.robot.util.CubicInterpolator;
 import frc.robot.commands.DescendreTreuil;
 import frc.robot.commands.FermerPorte;
@@ -43,10 +45,13 @@ public class OI {
   private JoystickButton button6;
   private JoystickButton button5;
   private JoystickButton button7;
+  private JoystickButton button1, button2, button3;
 
   private CubicInterpolator interY;
 
   public OI() {
+
+    interY = new CubicInterpolator(K.BasePilotable.INTERY_COURBURE, K.BasePilotable.INTERY_DEADZONE_VITESSE, K.BasePilotable.INTERY_DEADZONE_JOYSTICK);
 
     joystick = new Joystick(0);
     xbox = new XboxController(1);
@@ -57,6 +62,8 @@ public class OI {
     buttonB = new JoystickButton(xbox, 2);
     buttonB.toggleWhenPressed(new BougerTreuil(K.Intake.TREUIL_HAUTEUR_CAROTTE));
 
+    button3 = new JoystickButton(joystick, 3);
+    button3.toggleWhenPressed(new Viser());
     buttonX = new JoystickButton(xbox, 3);
     buttonX.toggleWhenPressed(new BougerTreuil(K.Intake.TREUIL_HAUTEUR_BALLE));
 

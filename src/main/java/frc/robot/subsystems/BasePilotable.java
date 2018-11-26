@@ -99,6 +99,13 @@ public class BasePilotable extends Subsystem {
 
   }
 
+  public void arcadeDrive(double forward, double turn) {
+
+    drive.arcadeDrive(-forward, -turn);
+
+  }
+
+  public void stop(){
   public void stop() {
     moteurDroit.set(0);
     moteurGauche.set(0);

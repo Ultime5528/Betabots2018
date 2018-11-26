@@ -11,8 +11,11 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.subsystems.Camera;
+import frc.Properties;
 import frc.robot.subsystems.BasePilotable;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Porte;
@@ -30,6 +33,9 @@ public class Robot extends TimedRobot {
   public static Intake intake = new Intake();
   public static Porte porte = new Porte();
 
+  public static Camera camera = new Camera();
+
+  private Properties properties = new Properties(K.class);
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
@@ -49,6 +55,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+    properties.performChanges();
     SmartDashboard.putNumber("Pot", Robot.intake.getPot());
   }
 
