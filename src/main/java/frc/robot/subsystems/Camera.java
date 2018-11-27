@@ -7,11 +7,9 @@
 
 package frc.robot.subsystems;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collector;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
 import org.opencv.core.Mat;
@@ -44,6 +42,8 @@ public class Camera extends Subsystem {
   private GripPipeline gripPipeline;
   private Spark controlleur;
 
+  private AtomicBoolean isStarted;
+
   Rectangle targetRectangle = null;
 
   private Thread thread;
@@ -54,13 +54,17 @@ public class Camera extends Subsystem {
 
     gripPipeline = new GripPipeline();
 
-    controlleur = new Spark(K.Ports.PORT_LED_CAMERA);
+    controlleur = new Spark(K.Ports.LED_CAMERA);
+
+    isStarted = new AtomicBoolean();
 
     thread = new Thread(this::processusVision);
     thread.start();
 
     updateBrightness();
     updateExposure();
+
+
   }
 
   @Override
@@ -81,13 +85,18 @@ public class Camera extends Subsystem {
       
       try {
         source.grabFrame(input);
+
         gripPipeline.process(input);
 
-    
         outputHsv = gripPipeline.hsvThresholdOutput();
         videoHsv.putFrame(outputHsv);
 
         outputResize = gripPipeline.resizeImageOutput();
+
+        if(!isStarted.get()){
+          videoResize.putFrame(outputResize);
+          continue;
+        }
         
         ArrayList<MatOfPoint> contours = gripPipeline.findContoursOutput();
 
@@ -141,11 +150,17 @@ public class Camera extends Subsystem {
   }
 
   public synchronized double getCenterX(){
-    return targetRectangle.centreX();
+    if(targetRectangle != null)
+      return targetRectangle.centreX();
+    else 
+      return Double.NaN;
   }
 
   public synchronized double getLargeur(){
-    return targetRectangle.width;
+    if(targetRectangle != null)
+      return targetRectangle.width;
+    else 
+      return Double.NaN;
   }
 
   public void setCible(Cible _cible){
@@ -156,12 +171,18 @@ public class Camera extends Subsystem {
     camera.setBrightness(0);
     camera.setExposureManual(0);
     controlleur.set(1.0);
+
+    isStarted.set(true);
   }
 
   public void stopCamera(){
     camera.setBrightness(K.Camera.PILOT_BRIGHTNESS);
     camera.setExposureManual(K.Camera.PILOT_EXPOSURE);
     controlleur.set(0.0);
+
+    targetRectangle = null;
+    
+    isStarted.set(false);
   }
 
   public static void updateBrightness(){

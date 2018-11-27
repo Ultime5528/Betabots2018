@@ -25,6 +25,8 @@ public class ViserAvancer extends Command {
   protected void initialize() {
     centreX = 0.0;
     largeurErreur = 0.0;
+
+    Robot.camera.startCamera();
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -85,6 +87,7 @@ public class ViserAvancer extends Command {
   @Override
   protected void end() {
     Robot.basePilotable.stop();
+    Robot.camera.stopCamera();
   }
 
   // Called when another command which requires one or more of the same

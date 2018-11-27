@@ -95,17 +95,16 @@ public class BasePilotable extends Subsystem {
 
   public void arcadeDrive(Joystick joystick) {
 
-    drive.arcadeDrive(-joystick.getY(), -joystick.getX());
+    drive.arcadeDrive(joystick.getY(), -joystick.getX());
 
   }
 
   public void arcadeDrive(double forward, double turn) {
 
-    drive.arcadeDrive(-forward, -turn);
+    drive.arcadeDrive(forward, -turn);
 
   }
 
-  public void stop(){
   public void stop() {
     moteurDroit.set(0);
     moteurGauche.set(0);
@@ -145,7 +144,7 @@ public class BasePilotable extends Subsystem {
 
 		Joystick joystick = Robot.oi.getJoystick();
 
-		drive.arcadeDrive(-Robot.oi.getInterY().interpolate(-joystick.getY()), -joystick.getX());
+		drive.arcadeDrive(Robot.oi.getInterY().interpolate(-joystick.getY()), -joystick.getX());
 
   }
 

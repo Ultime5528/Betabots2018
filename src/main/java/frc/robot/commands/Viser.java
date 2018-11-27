@@ -22,6 +22,8 @@ public class Viser extends Command {
   @Override
   protected void initialize() {
     centreX = 0.0;
+
+    Robot.camera.startCamera();
   }
 
   @Override
@@ -31,7 +33,7 @@ public class Viser extends Command {
 
     double turn = Math.signum(centreX) * K.Camera.TURN_SPEED;
 
-    Robot.basePilotable.arcadeDrive(0, turn);
+    Robot.basePilotable.arcadeDrive(0.22, turn);
 
   }
 
@@ -43,6 +45,7 @@ public class Viser extends Command {
   @Override
   protected void end() {
     Robot.basePilotable.stop();
+    Robot.camera.stopCamera();
   }
 
   @Override

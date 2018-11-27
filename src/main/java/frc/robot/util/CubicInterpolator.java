@@ -34,7 +34,7 @@ public class CubicInterpolator {
 		}
 	}
 
-	public double getA() {
+	public double getCourbure() {
 		return courbure;
 	}
 
