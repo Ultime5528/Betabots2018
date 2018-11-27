@@ -12,7 +12,7 @@ import frc.robot.Robot;
 
 public class MaintienTreuil extends Command {
   public MaintienTreuil() {
-    requires(Robot.intake); 
+    requires(Robot.treuil); 
   }
 
   // Called just before this Command runs the first time

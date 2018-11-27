@@ -78,10 +78,10 @@ public class OI {
 
 
     buttonLT = new AxisDownTrigger(xbox, 2);
-    buttonLT.toggleWhenActive(new PrendreBalles());
+    buttonLT.toggleWhenActive(new CracherBalles());
    
     buttonRT = new AxisDownTrigger(xbox, 3);
-    buttonRT.toggleWhenActive(new CracherBalles());
+    buttonRT.toggleWhenActive(new PrendreBalles());
 
     joystickGaucheBas = new AxisDownTrigger(xbox, 1);
     joystickGaucheBas.whileActive(new DescendreTreuil());

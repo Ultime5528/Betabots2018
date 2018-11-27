@@ -15,7 +15,7 @@ public class MonterTreuil extends Command {
   public MonterTreuil() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.intake);
+    requires(Robot.treuil);
   }
 
   // Called just before this Command runs the first time

@@ -13,7 +13,7 @@ import frc.robot.Robot;
 
 public class DescendreTreuil extends Command {
   public DescendreTreuil() {
-    requires(Robot.intake);
+    requires(Robot.treuil);
   }
 
   // Called just before this Command runs the first time
