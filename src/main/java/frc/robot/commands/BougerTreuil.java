@@ -17,7 +17,7 @@ public class BougerTreuil extends Command {
 
   public BougerTreuil(double h) {
     hauteur = h;
-    requires(Robot.intake);
+    requires(Robot.treuil);
   }
 
   // Called just before this Command runs the first time
@@ -29,10 +29,10 @@ public class BougerTreuil extends Command {
   @Override
   protected void execute() {
 
-    if (hauteur > Robot.intake.getPot()) {
-      Robot.intake.monterTreuil();
-    } else if (hauteur < Robot.intake.getPot()) {
-      Robot.intake.descendreTreuil();
+    if (hauteur > Robot.treuil.getPot()) {
+      Robot.treuil.monterTreuil();
+    } else if (hauteur < Robot.treuil.getPot()) {
+      Robot.treuil.descendreTreuil();
     }
 
   }
@@ -40,13 +40,13 @@ public class BougerTreuil extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Math.abs(hauteur - Robot.intake.getPot()) < K.Intake.TREUIL_TRESHOLD;
+    return Math.abs(hauteur - Robot.treuil.getPot()) < K.Intake.TREUIL_TRESHOLD;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.intake.stopTreuil();
+    Robot.treuil.stopTreuil();
   }
 
   // Called when another command which requires one or more of the same

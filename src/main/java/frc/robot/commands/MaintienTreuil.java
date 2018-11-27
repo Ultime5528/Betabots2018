@@ -24,7 +24,7 @@ public class MaintienTreuil extends Command {
   @Override
   protected void execute() {
 
-    Robot.intake.maintienTreuil();
+    Robot.treuil.maintienTreuil();
     
   }
 
@@ -37,7 +37,7 @@ public class MaintienTreuil extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.intake.stopTreuil();
+    Robot.treuil.stopTreuil();
   }
 
   // Called when another command which requires one or more of the same

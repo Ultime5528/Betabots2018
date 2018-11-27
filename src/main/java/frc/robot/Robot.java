@@ -19,6 +19,7 @@ import frc.Properties;
 import frc.robot.subsystems.BasePilotable;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Porte;
+import frc.robot.subsystems.Treuil;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -31,6 +32,7 @@ public class Robot extends TimedRobot {
   public static BasePilotable basePilotable = new BasePilotable();
   public static OI oi;
   public static Intake intake = new Intake();
+  public static Treuil treuil = new Treuil();
   public static Porte porte = new Porte();
 
   public static Camera camera = new Camera();
@@ -56,7 +58,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     properties.performChanges();
-    SmartDashboard.putNumber("Pot", Robot.intake.getPot());
+    SmartDashboard.putNumber("Pot", Robot.treuil.getPot());
   }
 
   /**

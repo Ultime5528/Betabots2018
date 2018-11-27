@@ -24,20 +24,20 @@ public class DescendreTreuil extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.intake.descendreTreuil();
+    Robot.treuil.descendreTreuil();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Robot.intake.getPot() <= K.Intake.TREUIL_POT_MIN;
+    return Robot.treuil.getPot() <= K.Intake.TREUIL_POT_MIN;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
     System.out.println("Fin descendre treuil");
-    Robot.intake.stopTreuil();
+    Robot.treuil.stopTreuil();
   }
 
   // Called when another command which requires one or more of the same

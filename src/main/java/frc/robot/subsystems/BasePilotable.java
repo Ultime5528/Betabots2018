@@ -105,7 +105,6 @@ public class BasePilotable extends Subsystem {
 
   }
 
-  public void stop(){
   public void stop() {
     moteurDroit.set(0);
     moteurGauche.set(0);
