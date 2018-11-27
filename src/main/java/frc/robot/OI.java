@@ -22,6 +22,7 @@ import frc.robot.triggers.AxisUpTrigger;
 import frc.robot.triggers.POVTrigger;
 import frc.robot.triggers.POVTrigger.Arrow;
 import frc.robot.commands.Viser;
+import frc.robot.commands.ViserAvancer;
 import frc.robot.util.CubicInterpolator;
 import frc.robot.commands.DescendreTreuil;
 import frc.robot.commands.FermerPorte;
@@ -42,10 +43,8 @@ public class OI {
   private AxisDownTrigger joystickGaucheBas;
   private POVTrigger croixHaut;
   private POVTrigger croixBas;
-  private JoystickButton button6;
-  private JoystickButton button5;
   private JoystickButton button7;
-  private JoystickButton button1, button2, button3;
+  private JoystickButton buttonStart, buttonBack;
 
   private CubicInterpolator interY;
 
@@ -62,8 +61,12 @@ public class OI {
     buttonB = new JoystickButton(xbox, 2);
     buttonB.toggleWhenPressed(new BougerTreuil(K.Intake.TREUIL_HAUTEUR_CAROTTE));
 
-    button3 = new JoystickButton(joystick, 3);
-    button3.toggleWhenPressed(new Viser());
+    buttonStart = new JoystickButton(xbox, 8);
+    buttonStart.toggleWhenPressed(new Viser());
+
+    buttonBack = new JoystickButton(xbox, 7);
+    buttonBack.toggleWhenPressed(new ViserAvancer());
+
     buttonX = new JoystickButton(xbox, 3);
     buttonX.toggleWhenPressed(new BougerTreuil(K.Intake.TREUIL_HAUTEUR_BALLE));
 
