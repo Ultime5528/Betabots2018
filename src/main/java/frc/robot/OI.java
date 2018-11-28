@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.Joystick.AxisType;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.ADIS16448_IMU.Axis;
-import frc.robot.commands.AutoPlateformeDroiteA;
+import frc.robot.commands.autonomes.*;
 import frc.robot.commands.BougerTreuil;
 import frc.robot.commands.CracherBalles;
 import frc.robot.commands.PrendreBalles;
