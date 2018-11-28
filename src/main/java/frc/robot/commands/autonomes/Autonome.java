@@ -29,6 +29,7 @@ public class Autonome extends CommandGroup{
         // Autre trajectoire, qui dépend de la position des blocs
         addSequential(trajectoireArche, 1);
 
+        /*
         addSequential(new ViserAvancer(), 3);
 
         addParallel(new PrendreBalles());
@@ -44,5 +45,6 @@ public class Autonome extends CommandGroup{
         new Waypoint(0, 0, Pathfinder.d2r(-180)),
         new Waypoint(-0.3, 0, Pathfinder.d2r(-180))
         }, -0.25, 0.25), 1);
+        */
     }
 }
