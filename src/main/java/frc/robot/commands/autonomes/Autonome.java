@@ -41,14 +41,14 @@ public class Autonome extends CommandGroup{
 
         addSequential(new SuivreTrajectoire(new Waypoint[] {
         new Waypoint(0, 0, 0),
-        new Waypoint(0.8, 0, 0)
+        new Waypoint(1.1, 0, 0)
         }, 0.5, -0.25), 3);
 
         addSequential(new BougerTreuil(K.Intake.TREUIL_HAUTEUR_BALLE), 1);
 
         addSequential(new SuivreTrajectoire(new Waypoint[] {
         new Waypoint(0, 0, Pathfinder.d2r(-180)),
-        new Waypoint(-0.8, 0, Pathfinder.d2r(-180))
+        new Waypoint(-1.1, 0, Pathfinder.d2r(-180))
         }, -0.5, 0.5), 3);
         
     }
