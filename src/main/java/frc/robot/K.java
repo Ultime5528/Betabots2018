@@ -56,10 +56,10 @@ public class K {
     public static double VITESSE_TREUIL_MONTER    = 0.4;
     public static double VITESSE_TREUIL_MAINTIEN  = 0.2;
 
-    public static double TREUIL_TRESHOLD        = 0.05;
-    public static double TREUIL_POT_MIN         = 0.1;
-    public static double TREUIL_HAUTEUR_BALLE   = 0.15;
-    public static double TREUIL_HAUTEUR_CAROTTE = 0.26;
+    public static double TREUIL_TRESHOLD        = 0.025;
+    public static double TREUIL_POT_MIN         = 0.087;
+    public static double TREUIL_HAUTEUR_BALLE   = 0.12;
+    public static double TREUIL_HAUTEUR_CAROTTE = 0.197;
     public static double TREUIL_POT_MAX         = 0.35;
   }
 
@@ -81,11 +81,11 @@ public class K {
     //Viser
     public static double X_THRESHOLD = 0.05;
 
-    public static double LARGEUR_TARGET = 0.2;
+    public static double LARGEUR_TARGET = 0.1;
     public static double LARGEUR_THRESHOLD = 0.016;
 
-    public static double TURN_SPEED = 0.62;
-    public static double FORWARD_SPEED = 0.7;
+    public static double TURN_SPEED = 0.68;
+    public static double FORWARD_SPEED = 0.78;
 
     //Process
     //HSV

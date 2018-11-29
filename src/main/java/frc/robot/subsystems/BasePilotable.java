@@ -165,7 +165,7 @@ public class BasePilotable extends Subsystem {
   
 	public double getHeading() {
 
-    return -gyro.getAngle();
+    return gyro.getAngle();
 
 	}
 

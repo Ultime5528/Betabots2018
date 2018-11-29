@@ -12,6 +12,7 @@ import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Trajectory; 
 import jaci.pathfinder.Waypoint; 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /** 
  * 
@@ -72,11 +73,12 @@ public class SuivreTrajectoire extends Command {
 		}
 		
     	double error = Pathfinder.r2d(trajectory.segments[indexSegment].heading) - Robot.basePilotable.getHeading() - angleInitial;
-    	error =  Pathfinder.boundHalfDegrees(error);
+		error =  Pathfinder.boundHalfDegrees(error);
+		SmartDashboard.putNumber("error", error);
     	
     	double correction = ANGLE_P * error;
     	
-    	Robot.basePilotable.tankDrive(vitesseGauche + correction, vitesseDroite - correction);
+    	Robot.basePilotable.tankDrive(vitesseGauche - correction, vitesseDroite + correction);
 
 	} 
 

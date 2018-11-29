@@ -24,10 +24,10 @@ public class AutoPlateformeDroiteA extends Autonome {
   public AutoPlateformeDroiteA() {
     
     super(new SuivreTrajectoire(new Waypoint[] {
-        new Waypoint(0, 0, 0),
-        //new Waypoint(2.5, -1.0, Pathfinder.d2r(30))
-        new Waypoint(0.5, 0.5, Pathfinder.d2r(-45))
-      }, 0.5, -1),
+        new Waypoint(0, 0, Pathfinder.d2r(-60)),
+        new Waypoint(3.0, -3.4, Pathfinder.d2r(0)),
+        //new Waypoint(2.3, -2.05, Pathfinder.d2r(-25))
+      }, 0.5, -0.7),
 
       new SuivreTrajectoire(new Waypoint[] {
         new Waypoint(0, 0, 0),
@@ -36,3 +36,4 @@ public class AutoPlateformeDroiteA extends Autonome {
 
   }
 }
+

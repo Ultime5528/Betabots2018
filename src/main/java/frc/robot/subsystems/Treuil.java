@@ -60,11 +60,8 @@ public class Treuil extends Subsystem {
   }
 
   public void maintienTreuil() {
-    if (getPot() > 0.1) {
-      moteurTreuil.set(K.Intake.VITESSE_TREUIL_MAINTIEN);
-    } else {
-      moteurTreuil.set(0.0);
-    }
+    
+    moteurTreuil.set(K.Intake.VITESSE_TREUIL_MAINTIEN);
 
   }
 
