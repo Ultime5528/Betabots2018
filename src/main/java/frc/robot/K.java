@@ -50,11 +50,11 @@ public class K {
   }
 
   public static class Intake {
-    public static double VITESSE_GOBER            = -0.8; 
+    public static double VITESSE_GOBER            = -0.6; 
     public static double VITESSE_CRACHER          = 0.8;
     public static double VITESSE_TREUIL_DESCENDRE = -0.3;
     public static double VITESSE_TREUIL_MONTER    = 0.4;
-    public static double VITESSE_TREUIL_MAINTIEN  = 0.2;
+    public static double VITESSE_TREUIL_MAINTIEN  = 0.15;
 
     public static double TREUIL_TRESHOLD        = 0.025;
     public static double TREUIL_POT_MIN         = 0.087;
@@ -84,18 +84,18 @@ public class K {
     public static double LARGEUR_TARGET = 0.1;
     public static double LARGEUR_THRESHOLD = 0.016;
 
-    public static double TURN_SPEED = 0.68;
-    public static double FORWARD_SPEED = 0.78;
+    public static double TURN_SPEED = 0.72;
+    public static double FORWARD_SPEED = 0.82;
 
     //Process
     //HSV
-    public static double H_MIN = 68;
+    public static double H_MIN = 50;
     public static double H_MAX = 112;
 
-		public static double S_MIN = 62;
+		public static double S_MIN = 55;
     public static double S_MAX = 255;
 
-    public static double V_MIN = 82;
+    public static double V_MIN = 75;
     public static double V_MAX = 255;
 
     public static double BLUR_VALUE = 1.0;

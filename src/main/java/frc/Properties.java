@@ -41,8 +41,8 @@ public class Properties {
 
     private void callback() {
 
-        frc.robot.subsystems.Camera.updateBrightness();
-        frc.robot.subsystems.Camera.updateExposure();
+        //frc.robot.subsystems.Camera.updateBrightness();
+        //frc.robot.subsystems.Camera.updateExposure();
 
     }
 

@@ -17,6 +17,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.Camera;
 import frc.Properties;
 import frc.robot.commands.autonomes.AutoPlateformeDroiteA;
+import frc.robot.commands.autonomes.AutoPlateformeDroiteD;
+import frc.robot.commands.autonomes.AutoPlateformeGaucheA;
+import frc.robot.commands.autonomes.AutoPlateformeGaucheD;
 import frc.robot.commands.autonomes.Autonome;
 import frc.robot.subsystems.BasePilotable;
 import frc.robot.subsystems.Intake;
@@ -53,7 +56,12 @@ public class Robot extends TimedRobot {
     oi = new OI();
     chooser = new SendableChooser<>();
 
-    chooser.addDefault("Droite A", new AutoPlateformeDroiteA());
+    chooser.addDefault("Droite A,C", new AutoPlateformeDroiteA());
+    chooser.addObject("Droite B,D", new AutoPlateformeDroiteD());
+    chooser.addObject("Gauche A,C", new AutoPlateformeGaucheA());
+    chooser.addObject("Gauche B,D", new AutoPlateformeGaucheD());
+
+    SmartDashboard.putData("Autonomne", chooser);
   }
 
   /**

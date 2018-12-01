@@ -1,12 +1,14 @@
 package frc.robot.commands.autonomes;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.TimedCommand;
 import frc.robot.K;
 import frc.robot.commands.BougerTreuil;
 import frc.robot.commands.FermerPorte;
 import frc.robot.commands.MaintienTreuil;
 import frc.robot.commands.OuvrirPorte;
 import frc.robot.commands.PrendreBalles;
+import frc.robot.commands.StopIntake;
 import frc.robot.commands.SuivreTrajectoire;
 import frc.robot.commands.ViserAvancer;
 import jaci.pathfinder.Pathfinder;
@@ -36,7 +38,7 @@ public class Autonome extends CommandGroup{
         
         addSequential(new ViserAvancer(), 3);
         
-        addSequential(new FermerPorte());
+        //addSequential(new FermerPorte());
         addParallel(new PrendreBalles());
 
         addSequential(new SuivreTrajectoire(new Waypoint[] {
@@ -50,6 +52,10 @@ public class Autonome extends CommandGroup{
         new Waypoint(0, 0, Pathfinder.d2r(-180)),
         new Waypoint(-1.1, 0, Pathfinder.d2r(-180))
         }, -0.5, 0.5), 3);
+
+        addSequential(new TimedCommand(2));
+
+        addSequential(new StopIntake());
         
     }
 }

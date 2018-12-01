@@ -43,14 +43,14 @@ public class OI {
   private AxisDownTrigger joystickGaucheBas;
   private POVTrigger croixHaut;
   private POVTrigger croixBas;
-  private JoystickButton button7;
   private JoystickButton buttonStart, buttonBack;
 
   private CubicInterpolator interY;
 
   public OI() {
 
-    interY = new CubicInterpolator(K.BasePilotable.INTERY_COURBURE, K.BasePilotable.INTERY_DEADZONE_VITESSE, K.BasePilotable.INTERY_DEADZONE_JOYSTICK);
+    interY = new CubicInterpolator(K.BasePilotable.INTERY_COURBURE, K.BasePilotable.INTERY_DEADZONE_VITESSE,
+        K.BasePilotable.INTERY_DEADZONE_JOYSTICK);
 
     joystick = new Joystick(0);
     xbox = new XboxController(1);
@@ -70,16 +70,12 @@ public class OI {
     buttonX = new JoystickButton(xbox, 3);
     buttonX.toggleWhenPressed(new BougerTreuil(K.Intake.TREUIL_HAUTEUR_BALLE));
 
-
     buttonY = new JoystickButton(xbox, 4);
     buttonY.toggleWhenPressed(new BougerTreuil(K.Intake.TREUIL_POT_MAX));
 
-
-
-
     buttonLT = new AxisDownTrigger(xbox, 2);
     buttonLT.toggleWhenActive(new CracherBalles());
-   
+
     buttonRT = new AxisDownTrigger(xbox, 3);
     buttonRT.toggleWhenActive(new PrendreBalles());
 
@@ -89,20 +85,13 @@ public class OI {
     joystickGaucheHaut = new AxisUpTrigger(xbox, 1);
     joystickGaucheHaut.whileActive(new MonterTreuil());
 
-    croixHaut = new POVTrigger(xbox,  Arrow.UP);
+    croixHaut = new POVTrigger(xbox, Arrow.UP);
     croixHaut.whenActive(new OuvrirPorte());
 
     croixBas = new POVTrigger(xbox, Arrow.DOWN);
     croixBas.whenActive(new FermerPorte());
 
-    button7 = new JoystickButton(joystick, 7);
-    button7.toggleWhenPressed(new AutoPlateformeDroiteA());
-    
-
-
     SmartDashboard.putData("AutonomePlateformeDroiteA", new AutoPlateformeDroiteA());
-
-
 
   }
 

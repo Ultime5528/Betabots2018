@@ -17,15 +17,16 @@ import frc.robot.commands.ViserAvancer;
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Waypoint;
 
-public class AutoPlateformeDroiteA extends Autonome {
+public class AutoPlateformeGaucheD extends Autonome {
   /**
    * Add your docs here.
    */
-  public AutoPlateformeDroiteA() {
+  public AutoPlateformeGaucheD() {
     
     super(new SuivreTrajectoire(new Waypoint[] {
-        new Waypoint(0, 0, Pathfinder.d2r(-60)),
-        new Waypoint(3.0, -3.6, Pathfinder.d2r(0)),
+        new Waypoint(0, 0, Pathfinder.d2r(0)),
+        new Waypoint(2, 0, Pathfinder.d2r(0)),
+        new Waypoint(3.0, -0.1, Pathfinder.d2r(-5)),
         //new Waypoint(2.3, -2.05, Pathfinder.d2r(-25))
       }, 0.5, -0.7),
 
