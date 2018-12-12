@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.TimedCommand;
 import frc.robot.K;
 import frc.robot.commands.BougerTreuil;
+import frc.robot.commands.DescendreTreuil;
 import frc.robot.commands.FermerPorte;
 import frc.robot.commands.MaintienTreuil;
 import frc.robot.commands.OuvrirPorte;
@@ -17,18 +18,22 @@ import jaci.pathfinder.Waypoint;
 /**
  * Autonome
  */
-public class Autonome extends CommandGroup{
+public class AutonomeDescendre extends CommandGroup{
 
-    public Autonome(SuivreTrajectoire trajectoireDescente, SuivreTrajectoire trajectoireArche){
+    public AutonomeDescendre(){
             
 
         // Descendre de la plateforme
         addParallel(new OuvrirPorte());
-        addParallel(new MaintienTreuil());
         
-        addSequential(trajectoireDescente, 4);
+        addSequential(new SuivreTrajectoire(new Waypoint[] {
+            new Waypoint(0, 0, 0),
+            new Waypoint(1.2, 0, 0)
+        }, 0.5, -0.7), 4);
         
-        
+        addSequential(new BougerTreuil(K.Intake.TREUIL_HAUTEUR_CAROTTE));
+        addSequential(new MaintienTreuil());
+        /*
         addSequential(new BougerTreuil(K.Intake.TREUIL_HAUTEUR_CAROTTE), 3);
         addParallel(new MaintienTreuil());
         
@@ -56,6 +61,6 @@ public class Autonome extends CommandGroup{
         addSequential(new TimedCommand(2));
 
         addSequential(new StopIntake());
-        
+        */
     }
 }

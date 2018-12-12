@@ -60,7 +60,7 @@ public class K {
     public static double TREUIL_POT_MIN         = 0.087;
     public static double TREUIL_HAUTEUR_BALLE   = 0.12;
     public static double TREUIL_HAUTEUR_CAROTTE = 0.197;
-    public static double TREUIL_POT_MAX         = 0.35;
+    public static double TREUIL_POT_MAX         = 0.39;
   }
 
   public static class Porte {
@@ -84,7 +84,7 @@ public class K {
     public static double LARGEUR_TARGET = 0.1;
     public static double LARGEUR_THRESHOLD = 0.016;
 
-    public static double TURN_SPEED = 0.72;
+    public static double TURN_SPEED = 0.68;
     public static double FORWARD_SPEED = 0.82;
 
     //Process

@@ -21,6 +21,7 @@ import frc.robot.commands.autonomes.AutoPlateformeDroiteD;
 import frc.robot.commands.autonomes.AutoPlateformeGaucheA;
 import frc.robot.commands.autonomes.AutoPlateformeGaucheD;
 import frc.robot.commands.autonomes.Autonome;
+import frc.robot.commands.autonomes.AutonomeDescendre;
 import frc.robot.subsystems.BasePilotable;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Porte;
@@ -44,7 +45,7 @@ public class Robot extends TimedRobot {
 
   private Properties properties = new Properties(K.class);
 
-  private Autonome autonomeChoisi;
+  private Command autonomeChoisi;
 
   private SendableChooser<Autonome> chooser;
   /**
@@ -105,8 +106,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-
-    autonomeChoisi = chooser.getSelected();
+    
+    autonomeChoisi = new AutonomeDescendre();//chooser.getSelected(); 
 
     if(autonomeChoisi != null)
       autonomeChoisi.start();
