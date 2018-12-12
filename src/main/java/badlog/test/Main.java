@@ -1,4 +1,7 @@
-package badlog.lib;
+package badlog.test;
+
+import badlog.lib.BadLog;
+import badlog.lib.DataInferMode;
 
 public class Main {
 	public static void main(String[] args) {
