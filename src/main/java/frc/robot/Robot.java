@@ -7,8 +7,14 @@
 
 package frc.robot;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+import java.util.Optional;
+
 import badlog.lib.BadLog;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Command;
@@ -37,7 +43,7 @@ import frc.robot.subsystems.Treuil;
  * project.
  */
 public class Robot extends TimedRobot {
-  public static BasePilotable basePilotable = new BasePilotable();
+  public static BasePilotable basePilotable;
   public static OI oi;
   public static Intake intake = new Intake();
   public static Treuil treuil = new Treuil();
@@ -51,13 +57,44 @@ public class Robot extends TimedRobot {
 
   private SendableChooser<Autonome> chooser;
 
+  private BadLog log;
+
   /**
-   * This function is run when the robot is first started up and should be
-   * used for any initialization code.
+   * This function is run when the robot is first started up and should be used
+   * for any initialization code.
    */
   @Override
   public void robotInit() {
+
+    log = BadLog.init("/media/sda1/Badlog/test.bag");
+    BadLog.createValue("MatchNumber", "" + DriverStation.getInstance().getMatchNumber());
+                  
+    BadLog.createTopic("", "", () -> .2);
+
+    BadLog.createTopicSubscriber("RandomNumbers", BadLog.UNITLESS, badlog.lib.DataInferMode.DEFAULT, "integrate");
+
+    
+
+			BadLog.createValue("Start Time",       LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd MMM yyy H:mm:ss", Locale.CANADA_FRENCH)));
+			BadLog.createValue("Event Name",
+					Optional.ofNullable(DriverStation.getInstance().getEventName()).orElse(""));
+			BadLog.createValue("Match Type", DriverStation.getInstance().getMatchType().toString());
+			BadLog.createValue("Match Number", "" + DriverStation.getInstance().getMatchNumber());
+			BadLog.createValue("Alliance", DriverStation.getInstance().getAlliance().toString());
+			BadLog.createValue("Location", "" + DriverStation.getInstance().getLocation());
+
+			BadLog.createTopicSubscriber("Time", "s", badlog.lib.DataInferMode.DEFAULT, "hide", "delta", "xaxis");
+
+			BadLog.createTopicStr("System/Browned Out", "bool", () -> RobotController.isBrownedOut() ? "1" : "0");
+			BadLog.createTopic("System/Battery Voltage", "V", () -> RobotController.getBatteryVoltage());
+			BadLog.createTopicStr("System/FPGA Active", "bool", () -> RobotController.isSysActive() ? "1" : "0");
+			BadLog.createTopic("Match Time", "s", () -> DriverStation.getInstance().getMatchTime());
+
+
+    basePilotable = new BasePilotable();
+
     oi = new OI();
+
     chooser = new SendableChooser<>();
 
     chooser.addDefault("Droite A,C", new AutoPlateformeDroiteA());
@@ -66,22 +103,10 @@ public class Robot extends TimedRobot {
     chooser.addObject("Gauche B,D", new AutoPlateformeGaucheD());
 
     SmartDashboard.putData("Autonomne", chooser);
-    BadLog log = BadLog.init("test.bag");
-    BadLog.createValue("Match␣Number",
-        "" + DriverStation.getInstance().getMatchNumber());
-
-    BadLog.createTopic("", "", () -> .2);
-
-    BadLog.createTopicSubscriber("Random␣Numbers",
-       BadLog.UNITLESS,
-       badlog.lib.DataInferMode.DEFAULT,
-       "integrate");
-//Subsystemscanaddtheirowntopicsandvalues
-
+    // Subsystemscanaddtheirowntopicsandvalues
     log.finishInitialization();
-    
   }
-
+  
   /**
    * This function is called every robot packet, no matter the mode. Use this for
    * items like diagnostics that you want ran during disabled, autonomous,
@@ -90,13 +115,16 @@ public class Robot extends TimedRobot {
    * <p>
    * This runs after the mode specific periodic functions, but before LiveWindow
    * and SmartDashboard integrated updating.
-   */
+   **/
   @Override
   public void robotPeriodic() {
     properties.performChanges();
     SmartDashboard.putNumber("Pot", Robot.treuil.getPot());
+    BadLog.publish("RandomNumbers", Math.random());
+    log.updateTopics();
+    log.log();
   }
-
+  
   /**
    * This function is called once each time the robot enters Disabled mode. You
    * can use it to reset any subsystem information you want to clear when the
@@ -105,12 +133,12 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledInit() {
   }
-
+  
   @Override
   public void disabledPeriodic() {
     Scheduler.getInstance().run();
   }
-
+  
   /**
    * This autonomous (along with the chooser code above) shows how to select
    * between different autonomous modes using the dashboard. The sendable chooser
@@ -127,11 +155,11 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     
     autonomeChoisi = new AutonomeDescendre();//chooser.getSelected(); 
-
+    
     if (autonomeChoisi != null)
-      autonomeChoisi.start();
+    autonomeChoisi.start();
   }
-
+  
   /**
    * This function is called periodically during autonomous.
    */
@@ -139,13 +167,13 @@ public class Robot extends TimedRobot {
   public void autonomousPeriodic() {
     Scheduler.getInstance().run();
   }
-
+  
   @Override
   public void teleopInit() {
     if (autonomeChoisi != null)
-      autonomeChoisi.cancel();
+    autonomeChoisi.cancel();
   }
-
+  
   /**
    * This function is called periodically during operator control.
    */
@@ -153,7 +181,7 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
   }
-
+  
   /**
    * This function is called periodically during test mode.
    */

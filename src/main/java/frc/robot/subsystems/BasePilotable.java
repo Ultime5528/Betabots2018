@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+import badlog.lib.BadLog;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
@@ -84,8 +85,16 @@ public class BasePilotable extends Subsystem {
     };
     
     
-		averageSpeedFilter = LinearDigitalFilter.movingAverage(averageSpeed, 10);
+    averageSpeedFilter = LinearDigitalFilter.movingAverage(averageSpeed, 10);
     
+
+    // BADLOG
+
+    BadLog.createTopic("BasePilotable/Puissance moteur droit", "%", () -> moteurDroit.get(), "hide", "join:BasePilotable/Puissance moteurs");  
+    BadLog.createTopic("BasePilotable/Puissance moteur gauche", "%", () -> moteurGauche.get(), "hide", "join:BasePilotable/Puissance moteurs");
+    
+    BadLog.createTopic("BasePilotable/Valeur encodeur gauche", BadLog.UNITLESS, () -> encodeurGauche.getDistance(), "hide", "join:BasePilotable/Valeur encodeurs");
+    BadLog.createTopic("BasePilotable/Valeur encodeur droit", BadLog.UNITLESS, () -> encodeurDroite.getDistance(), "hide", "join:BasePilotable/Valeur encodeurs");
   }
 
   @Override

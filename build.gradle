@@ -4,6 +4,7 @@ plugins {
 }
 
 def ROBOT_CLASS = "frc.robot.Robot"
+def ALLO = "fdf"
 
 // Define my targets (RoboRIO) and artifacts (deployable files)
 // This is added by GradleRIO's backing project EmbeddedTools.

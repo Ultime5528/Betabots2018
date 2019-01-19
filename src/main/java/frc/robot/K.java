@@ -41,7 +41,7 @@ public class K {
 
   public static class BasePilotable {
 
-    public static final double VITESSE_BASE_PILOTABLE_MAX = 0.5 ;
+    public static final double VITESSE_BASE_PILOTABLE_MAX = 0.45 ;
 
     public static final double INTERY_COURBURE          = 1;
     public static final double INTERY_DEADZONE_VITESSE  = 0.2;

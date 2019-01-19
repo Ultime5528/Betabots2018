@@ -1,4 +1,5 @@
 package badlog.test;
+import badlog.lib.BadLog;
 
 import badlog.lib.BadLog;
 import badlog.lib.DataInferMode;
